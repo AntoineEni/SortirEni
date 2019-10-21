@@ -16,6 +16,8 @@ security:
             form_login:
                 login_path: user_login
                 check_path: user_login
+                default_target_path: default
+                always_use_default_target_path: true
             logout:
                 path: user_logout
                 target: user_login
@@ -39,3 +41,6 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
