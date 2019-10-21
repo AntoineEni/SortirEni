@@ -1,0 +1,12 @@
+{%  extends('base.html.twig') %}
+
+{% block title %}Prophil | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1 class="title">{{ app.user.username }}</h1>
+    <p>Nom : {{ app.user.firstName }}</p>
+    <p>Prenom : {{ app.user.name }}</p>
+    <p>Télephone : {{ app.user.phone }}</p>
+    <p>Mail : {{ app.user.mail }}</p>
+    <a class="btn btn-primary p-0">Modifier</a>
+{% endblock %}
