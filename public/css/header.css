@@ -1,0 +1,13 @@
+nav{
+    background-color: cadetblue;
+    color: white;
+}
+nav .title{
+    font-size: 32px;
+    border-right: white solid 2px;
+
+}
+nav .menu{
+    font-size: 24px;
+    color: white;
+}
