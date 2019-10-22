@@ -1,11 +1,11 @@
 <nav class="mb-5">
     <div class="container">
-        <a href="#" class="title pr-2">Sortie.com</a>
+        <a href="{{ path("default_index") }}" class="title pr-2">Sortie.com</a>
         <div class="float-right p-2">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <a href="#" class="menu p-2">Villes</a>
                 <a href="#" class="menu p-2">Sites</a>
-                <a href="#" class="menu p-2">Accueil</a>
+                <a href="{{ path("default_index") }}" class="menu p-2">Accueil</a>
                 <a href="{{ path("user_profil") }}" class="menu p-2">Mon profil</a>
                 <a href="{{ path("security_logout") }}" class="menu p-2">Déconnexion</a>
             {% else %}
