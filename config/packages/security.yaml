@@ -21,7 +21,7 @@ security:
 
     encoders:
         App\Entity\User:
-            algorithm: bcrypt
+            algorithm: auto
 
     access_denied_url: /login
 
