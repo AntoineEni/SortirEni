@@ -18,8 +18,8 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class,[
-                'label'=>'Pseudo',
-                'attr'=>['class'=>'form-control']
+                'label' => 'Pseudo',
+                'attr' => ['class'=>'form-control']
             ])
             ->add('password',  RepeatedType::class, [
                 'type' =>  PasswordType::class,
@@ -36,23 +36,22 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('name', TextType::class,[
-                'label'=>'Nom',
-                'attr'=>['class'=>'form-control']
+                'label' => 'Nom',
+                'attr' => ['class'=>'form-control']
             ])
             ->add('firstName', TextType::class,[
-                'label'=>'Prenom',
-                'attr'=>['class'=>'form-control']
+                'label' => 'Prenom',
+                'attr' => ['class'=>'form-control']
             ])
             ->add('phone',TelType::class,[
-                'label'=>'Numéro de télephone',
-                'attr'=>['class'=>'form-control']
+                'label' => 'Numéro de télephone',
+                'required' => false,
+                'attr' => ['class'=>'form-control']
             ])
             ->add('mail',EmailType::class,[
-                'label'=>'Adresse mail',
-                'attr'=>['class'=>'form-control']
+                'label' => 'Adresse mail',
+                'attr' => ['class'=>'form-control']
             ])
-            /*->add('isAdmin')
-            ->add('isActif')*/
         ;
     }
 
