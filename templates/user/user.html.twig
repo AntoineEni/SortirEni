@@ -8,5 +8,5 @@
     <p>Prenom : {{ app.user.name }}</p>
     <p>Télephone : {{ app.user.phone }}</p>
     <p>Mail : {{ app.user.mail }}</p>
-    <a class="btn btn-primary p-0">Modifier</a>
+    <a class="btn btn-primary p-0" href="{{ path("user_modify") }}">Modifier</a>
 {% endblock %}

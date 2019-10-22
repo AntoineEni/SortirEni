@@ -1,0 +1,18 @@
+{%  extends('base.html.twig') %}
+
+{% block title %}Profil | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="user">
+        <h1 class="text-center">Modifier</h1>
+        {{ form_start(userForm) }}
+        {{ form_row(userForm.username) }}
+        {{ form_row(userForm.firstName) }}
+        {{ form_row(userForm.name) }}
+        {{ form_row(userForm.phone) }}
+        {{ form_row(userForm.mail) }}
+        {{ form_row(userForm.password) }}
+        <button type="submit" class="btn btn-primary mt-2 mb-2">Sauvegarde</button>
+        {{ form_end(userForm) }}
+    </div>
+{% endblock %}

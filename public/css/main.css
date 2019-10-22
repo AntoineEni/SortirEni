@@ -7,3 +7,7 @@ body{
 .title{
 color:white;
 }
+.user .required{
+   font-size: 20px;
+    font-weight: bold;
+}

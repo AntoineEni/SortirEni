@@ -6,7 +6,7 @@
                 <a href="#" class="menu p-2">Villes</a>
                 <a href="#" class="menu p-2">Sites</a>
                 <a href="#" class="menu p-2">Accueil</a>
-                <a href="#" class="menu p-2">Mon profil</a>
+                <a href="{{ path("user_profil") }}" class="menu p-2">Mon profil</a>
                 <a href="{{ path("security_logout") }}" class="menu p-2">Déconnexion</a>
             {% else %}
                 <a href="{{ path("security_login") }}" class="menu p-2">Connexion</a>
