@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +26,10 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\LessThan(
+     *     propertyPath="dateCloture",
+     *     message="La valeur doit être inférieure à la date de clôture"
+     * )
      */
     private $dateDebut;
 
@@ -35,6 +40,10 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThan(
+     *     propertyPath="dateDebut",
+     *     message="La valeur doit être supérieure à la date de début"
+     *     )
      */
     private $dateCloture;
 
