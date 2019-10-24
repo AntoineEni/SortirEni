@@ -26,7 +26,7 @@ class EventRepository extends ServiceEntityRepository
             ->addSelect('s')
             ->addSelect('o')
             ->addSelect('si')
-            ->select('si.name as site, e.state, o.username, e.name, e.dateCloture, e.dateDebut, e.description, e.duration, e.inscriptionsMax, COUNT(s) as nombreDeParticipant')
+            ->select('si.name as site, e.id, e.state, o.username, e.name, e.dateCloture, e.dateDebut, e.description, e.duration, e.inscriptionsMax, COUNT(s) as nombreDeParticipant')
             ->addSelect("CASE WHEN (sP.id IS NULL) THEN false ELSE true END AS Participation")
             ->innerJoin('e.organisator','o')
             ->innerJoin('e.site','si')
@@ -35,7 +35,6 @@ class EventRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->groupBy('e.id')
             ->getQuery()
-            ->getArrayResult()
-            ;
+            ->getArrayResult();
     }
 }
