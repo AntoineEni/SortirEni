@@ -3,51 +3,53 @@
 {% block title %}Accueil | {{ parent() }}{% endblock %}
 
 {% block body %}
+    <div class="row pt-1">
+        <div class="col-md">
+            <h5 class="mt-3">Filtrer les sorties</h5>
+        </div>
+        <div class="col-md">
+            <h5 class="mt-3">Filtrer les sorties</h5>
+        </div>
+    </div>
+
     {{ form_start(formEvent) }}
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-md mt-3">
-            <div class="form-group row">
+            <div class="input-group mb-3">
                 {{ form_label(formEvent.site) }}
-                <div class="col-sm-9">
-                    {{ form_widget(formEvent.site) }}
-                </div>
+                {{ form_widget(formEvent.site) }}
             </div>
-            <div class="form-group row">
-                {{ form_label(formEvent.dateMin) }}
-                <div class="col-sm-9">
-                    {{ form_widget(formEvent.dateMin)  }}
-                </div>
-            </div>
-            <div class="form-group row">
+            <div class="input-group">
                 {{ form_label(formEvent.dateMax) }}
-                <div class="col-sm-9">
-                    {{ form_widget(formEvent.dateMax) }}
-                </div>
+                {{ form_widget(formEvent.dateMin)  }}
+                {{ form_label(formEvent.dateMin) }}
+                {{ form_widget(formEvent.dateMax) }}
             </div>
 
         </div>
         <div class="col-md mt-3">
-            <div class="form-group row">
+            <div class="input-group mb-3">
                 {{ form_label(formEvent.organisateur) }}
-                <div class="col-sm-4">
+
+                <div class="input-group-text">
                     {{ form_widget(formEvent.organisateur, {'attr': {'value':  app.user.username }}) }}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="input-group mb-3">
                 {{ form_label(formEvent.inscrit) }}
-                <div class="col-sm-4">
+                <div class="input-group-text">
                     {{ form_widget(formEvent.inscrit) }}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="input-group mb-3">
                 {{ form_label(formEvent.nInscrit) }}
-                <div class="col-sm-4">
+                <div class="input-group-text">
                     {{ form_widget(formEvent.nInscrit) }}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="input-group ">
                 {{ form_label(formEvent.finie) }}
-                <div class="col-sm-4 align-bottom">
+                <div class="input-group-text">
                     {{ form_widget(formEvent.finie) }}
                 </div>
             </div>
@@ -99,8 +101,8 @@
     </div>
 {% endblock %}
 
-{% block javascripts %}
-    <script src="{{ asset("js/pageAccueil.js") }}">
+        {% block javascripts %}
+            <script src="{{ asset("js/pageAccueil.js") }}">
 
-    </script>
-{% endblock %}
+            </script>
+        {% endblock %}
