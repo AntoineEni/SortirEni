@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\State;
 use App\Form\EventType;
+use App\Service\StateEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +43,6 @@ class EventController extends AbstractController
             if ($formEvent->isValid())
             {
                 $event->setOrganisator($this->getUser());
-                $event->setEtat($em->getRepository(State::class)->findOneBy(array("label" => "Créée")));
                 $event->setSite($this->getUser()->getSite());
 
                 $em->persist($event);

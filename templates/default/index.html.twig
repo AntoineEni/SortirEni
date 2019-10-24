@@ -43,7 +43,7 @@
                     <td>{{ value['dateDebut'] | date('d/m/Y') }}</td>
                     <td>{{ value['dateCloture'] | date('d/m/Y') }}</td>
                     <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
-                    <td>{{ value['label'] }}</td>
+                    <td>{{ value['state'] }}</td>
                     {% if(value['Participation'] == '1' ) %}
                         <td>X</td>
                     {% else %}

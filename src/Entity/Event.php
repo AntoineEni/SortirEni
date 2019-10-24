@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\StateEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,7 +27,7 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\LessThan(
+     * @Assert\LessThanOrEqual(
      *     propertyPath="dateCloture",
      *     message="La valeur doit être inférieure à la date de clôture"
      * )
@@ -40,7 +41,7 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\GreaterThan(
+     * @Assert\GreaterThanOrEqual(
      *     propertyPath="dateDebut",
      *     message="La valeur doit être supérieure à la date de début"
      *     )
@@ -69,10 +70,9 @@ class Event
     private $lieu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\State", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
-    private $etat;
+    private $state;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="events")
@@ -94,6 +94,7 @@ class Event
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
+        $this->setState(StateEnum::STATE_CREATE);
     }
 
     public function getId(): ?int
@@ -197,14 +198,14 @@ class Event
         return $this;
     }
 
-    public function getEtat(): ?State
+    public function getState(): ?string
     {
-        return $this->etat;
+        return $this->state;
     }
 
-    public function setEtat(?State $etat): self
+    public function setState(?string $state): self
     {
-        $this->etat = $etat;
+        $this->state = $state;
 
         return $this;
     }
