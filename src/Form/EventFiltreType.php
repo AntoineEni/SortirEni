@@ -21,37 +21,43 @@ class EventFiltreType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionnez un lieu',
                 'attr'=>['id'=>'site','class'=>'form-control'],
-                'label_attr'=>['class'=>'col-form-label']
+                'label_attr'=>['class'=>'col-sm-3 col-form-label']
             ))
             ->add('dateMin',TextType::class,array(
                 'attr'=>['id'=>'min','class'=>'form-control js-datepicker'],
                 'mapped'=>false,
-                'label_attr'=>['class'=>'col-form-label']
+                'label' => 'Date min :',
+                'label_attr'=>['class'=>'col-sm-3 col-form-label']
             ))
             ->add('dateMax',TextType::class,array(
                 'attr'=>['id'=>'max','class'=>'form-control js-datepicker'],
                 'mapped'=>false,
-                'label_attr'=>['class'=>'col-form-label']
+                'label' => 'Date max :',
+                'label_attr'=>['class'=>'col-sm-3 col-form-label']
             ))
             ->add('organisateur',CheckboxType::class,array(
-                'attr'=>['id'=>'organisateur','class'=>'form-control'],
+                'attr'=>['id'=>'organisateur','class'=>''],
                 'mapped'=>false,
-                'label_attr'=>['class'=>'col-form-label']
+                'label' => 'Sortie dont je suis l\'organisateur/trice :',
+                'label_attr'=>['class'=>'col-sm-8 ']
             ))
             ->add('inscrit',CheckboxType::class,array(
-                'attr'=>['id'=>'inscrit','class'=>'form-control'],
+                'attr'=>['id'=>'inscrit','class'=>''],
                 'mapped'=>false,
-                'label_attr'=>['class'=>'col-form-label']
+                'label' => 'Sortie auxqelles je suis inscrit/e :',
+                'label_attr'=>['class'=>'col-sm-8 ']
             ))
             ->add('nInscrit',CheckboxType::class,array(
-                'attr'=>['id'=>'Ninscrit','class'=>'form-control'],
+                'attr'=>['id'=>'Ninscrit','class'=>''],
                 'mapped'=>false,
-                'label_attr'=>['class'=>'col-form-label']
+                'label' => 'Sortie auxqelles je ne suis pas inscrit/e :',
+                'label_attr'=>['class'=>'col-sm-8 ']
             ))
             ->add('finie',CheckboxType::class,array(
-                'attr'=>['id'=>'passer','class'=>'form-control'],
+                'attr'=>['id'=>'passer','class'=>' '],
                 'mapped'=>false,
-                'label_attr'=>['class'=>'col-form-label']
+                'label' => 'Sortie passées :',
+                'label_attr'=>['class'=>'col-sm-8 col-form-label']
             ))
         ;
     }

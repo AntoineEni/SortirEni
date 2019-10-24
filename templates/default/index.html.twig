@@ -6,15 +6,51 @@
     {{ form_start(formEvent) }}
     <div class="row">
         <div class="col-md mt-3">
-            {{ form_row(formEvent.site) }}
-            {{ form_row(formEvent.dateMin) }}
-            {{ form_row(formEvent.dateMax) }}
+            <div class="form-group row">
+                {{ form_label(formEvent.site) }}
+                <div class="col-sm-9">
+                    {{ form_widget(formEvent.site) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form_label(formEvent.dateMin) }}
+                <div class="col-sm-9">
+                    {{ form_widget(formEvent.dateMin)  }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form_label(formEvent.dateMax) }}
+                <div class="col-sm-9">
+                    {{ form_widget(formEvent.dateMax) }}
+                </div>
+            </div>
+
         </div>
         <div class="col-md mt-3">
-            {{ form_row(formEvent.organisateur, {'attr': {'value':  app.user.username }}) }}
-            {{ form_row(formEvent.inscrit) }}
-            {{ form_row(formEvent.nInscrit) }}
-            {{ form_row(formEvent.finie) }}
+            <div class="form-group row">
+                {{ form_label(formEvent.organisateur) }}
+                <div class="col-sm-4">
+                    {{ form_widget(formEvent.organisateur, {'attr': {'value':  app.user.username }}) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form_label(formEvent.inscrit) }}
+                <div class="col-sm-4">
+                    {{ form_widget(formEvent.inscrit) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form_label(formEvent.nInscrit) }}
+                <div class="col-sm-4">
+                    {{ form_widget(formEvent.nInscrit) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form_label(formEvent.finie) }}
+                <div class="col-sm-4 align-bottom">
+                    {{ form_widget(formEvent.finie) }}
+                </div>
+            </div>
         </div>
     </div>
     {{ form_end(formEvent) }}
@@ -37,19 +73,19 @@
         </tr>
         </thead>
         <tbody>
-            {% for value in sortie %}
-                <tr>
-                    <td>{{ value['name'] }}</td>
-                    <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
-                    <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
-                    <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
-                    <td>{{ value['state'] }}</td>
-                    {% if(value['Participation'] == '1' ) %}
-                        <td>X</td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-                    <td>{{ value['username']}}</td>
+        {% for value in sortie %}
+            <tr>
+                <td>{{ value['name'] }}</td>
+                <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
+                <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
+                <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
+                <td>{{ value['state'] }}</td>
+                {% if(value['Participation'] == '1' ) %}
+                    <td>X</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                <td>{{ value['username']}}</td>
                 <td></td>
                 <td>{{ value['site']}}</td>
             </tr>
