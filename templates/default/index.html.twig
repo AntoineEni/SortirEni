@@ -77,20 +77,19 @@
         </thead>
         <tbody>
             {% for value in sortie %}
-                <a>
-                    <td><a href="{{ path("event_detail", {id: value["id"]}) }}">{{ value['name'] }}</a></td>
-                    <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
-                    <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
-                    <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
-                    <td>{{ value['state'] }}</td>
-                    {% if(value['Participation'] == '1' ) %}
-                        <td>X</td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-                    <td>{{ value['username']}}</td>
+                <td><a href="{{ path("event_detail", {id: value["id"]}) }}">{{ value['name'] }}</a></td>
+                <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
+                <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
+                <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
+                <td>{{ value['state'] }}</td>
+                {% if(value['Participation'] == '1' ) %}
+                    <td>X</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                <td>{{ value['username'] }}</td>
                 <td></td>
-                <td>{{ value['site']}}</td>
+                <td>{{ value['site'] }}</td>
             </tr>
         {% endfor %}
         </tbody>
