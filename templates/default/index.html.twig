@@ -3,26 +3,26 @@
 {% block title %}Accueil | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <label class="mt-3">Date min :</label>
-    <input type="text" class="js-datepicker" name="" id="min">
-    <label>Date max :</label>
-    <input type="text" class="js-datepicker" name="" id="max">
     {{ form_start(formEvent) }}
+    <div class="row">
+        <div class="col-md mt-3">
+            {{ form_row(formEvent.site) }}
+            {{ form_row(formEvent.dateMin) }}
+            {{ form_row(formEvent.dateMax) }}
+        </div>
+        <div class="col-md mt-3">
+            {{ form_row(formEvent.organisateur, {'attr': {'value':  app.user.username }}) }}
+            {{ form_row(formEvent.inscrit) }}
+            {{ form_row(formEvent.nInscrit) }}
+            {{ form_row(formEvent.finie) }}
+        </div>
+    </div>
     {{ form_end(formEvent) }}
-    <br>
-    <input type="checkbox" name="" id="organisateur" value="{{app.user.username }}">
-    <label>Sortie dont je suis l'organisateur/trice</label>
-    <br>
-    <input type="checkbox" name="" id="inscrit">
-    <label>Sortie auxquelles je suis inscrit/e</label>
-    <br>
-    <input type="checkbox" name="" id="Ninscrit">
-    <label>Sortie auxquelles je ne suis pas inscrit/e</label>
-    <br>
-    <input type="checkbox" name="" id="passer">
-    <label>Finie</label>
 
-    <table id="table" class="table table-striped table-bordered">
+
+
+
+    <table id="table" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
         <thead>
         <tr>
             <td>Nom de la sortie</td>
@@ -40,8 +40,8 @@
             {% for value in sortie %}
                 <tr>
                     <td>{{ value['name'] }}</td>
-                    <td>{{ value['dateDebut'] | date('d/m/Y') }}</td>
-                    <td>{{ value['dateCloture'] | date('d/m/Y') }}</td>
+                    <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
+                    <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
                     <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
                     <td>{{ value['state'] }}</td>
                     {% if(value['Participation'] == '1' ) %}
@@ -50,10 +50,10 @@
                         <td></td>
                     {% endif %}
                     <td>{{ value['username']}}</td>
-                    <td></td>
-                    <td>{{ value['site']}}</td>
-                </tr>
-            {% endfor %}
+                <td></td>
+                <td>{{ value['site']}}</td>
+            </tr>
+        {% endfor %}
         </tbody>
 
     </table>

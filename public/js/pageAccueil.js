@@ -1,8 +1,8 @@
 $(document).ready(function() {
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
-            var min = $('#min').datepicker("getDate");
-            var max = $('#max').datepicker("getDate");
+            var min = $('#event_filtre_dateMin').datepicker("getDate");
+            var max = $('#event_filtre_dateMax').datepicker("getDate");
             var startDate = new Date(data[1]);
             if (min == null && max == null) { return true; }
             if (min == null && startDate <= max) { return true; }
@@ -11,15 +11,15 @@ $(document).ready(function() {
             return false;
         },
         function (settings, data, dataIndex) {
-            var organisateur = $('#organisateur').is(':checked');
+            var organisateur = $('#event_filtre_organisateur').is(':checked');
             var inscrit = data[6];
             if (!organisateur) { return true; }
-            if (inscrit == $('#organisateur').attr('value') && organisateur) { return true; }
+            if (inscrit == $('#event_filtre_organisateur').attr('value') && organisateur) { return true; }
 
             return false;
         },
         function (settings, data, dataIndex) {
-            var inscritC = $('#inscrit').is(':checked');
+            var inscritC = $('#event_filtre_inscrit').is(':checked');
             var inscrit = data[5];
             if (!inscritC) { return true; }
             if (inscrit == 'X' && inscritC) { return true; }
@@ -27,7 +27,7 @@ $(document).ready(function() {
             return false;
         },
         function (settings, data, dataIndex) {
-            var Ninscrit = $('#Ninscrit').is(':checked');
+            var Ninscrit = $('#event_filtre_nInscrit').is(':checked');
             var inscrit = data[5];
             if (!Ninscrit) { return true; }
             if (inscrit != 'X' && Ninscrit) { return true; }
@@ -35,7 +35,7 @@ $(document).ready(function() {
             return false;
         },
         function (settings, data, dataIndex) {
-            var datePasser = $('#passer').is(':checked');
+            var datePasser = $('#event_filtre_finie').is(':checked');
             var inscrit = new Date(data[2]);
             var date = new Date();
             if (!datePasser) { return true; }
@@ -60,6 +60,7 @@ $(document).ready(function() {
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
         },
+        responsive: true,
         "columnDefs": [
             {
                 "targets": [ 8 ],
@@ -68,7 +69,7 @@ $(document).ready(function() {
         ],
     } );
 // Event listener to the two range filtering inputs to redraw on input
-    $('#min, #max, #organisateur,#inscrit,#Ninscrit,#passer,#event_filtre_site').change(function () {
+    $('#event_filtre_dateMin, #event_filtre_dateMax, #event_filtre_organisateur,#event_filtre_inscrit,#event_filtre_nInscrit,#event_filtre_finie,#event_filtre_site').change(function () {
         table.draw();
     });
 
