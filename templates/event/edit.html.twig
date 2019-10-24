@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification sortie | {{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ form_start(formEvent) }}
+    {{ form_widget(formEvent) }}
+    <input type="submit" value="Modifier"/>
+    {{ form_end(formEvent) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let dateDebut = "{{ event.dateDebut|json_encode|e('js') }}";
+        let dateCloture = "{{ event.dateCloture|json_encode|e('js') }}";
+    </script>
+    <script src="{{ asset("js/event/edit.js") }}"></script>
+{% endblock %}

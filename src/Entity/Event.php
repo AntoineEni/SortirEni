@@ -27,9 +27,9 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\LessThanOrEqual(
+     * @Assert\GreaterThan(
      *     propertyPath="dateCloture",
-     *     message="La valeur doit être inférieure à la date de clôture"
+     *     message="La valeur doit être supérieure à la date de clôture"
      * )
      */
     private $dateDebut;
@@ -41,9 +41,9 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\GreaterThanOrEqual(
+     * @Assert\LessThan(
      *     propertyPath="dateDebut",
-     *     message="La valeur doit être supérieure à la date de début"
+     *     message="La valeur doit être inférieure à la date de début"
      *     )
      */
     private $dateCloture;

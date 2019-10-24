@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -27,7 +29,7 @@ class EventType extends AbstractType
                 "label" => "Date de début",
                 'widget' => 'single_text',
                 'html5' => false,
-                'format' => 'dd/mm/yyyy',
+                'format' => 'dd/MM/yyyy',
                 'attr' => ['class' => 'js-datepicker'],
             ))
             ->add('heureDebut', TimeType::class, array(
@@ -42,7 +44,7 @@ class EventType extends AbstractType
                 "label" => "Date de fin d'inscription",
                 'widget' => 'single_text',
                 'html5' => false,
-                'format' => 'dd/mm/yyyy',
+                'format' => 'dd/MM/yyyy',
                 'attr' => ['class' => 'js-datepicker'],
             ))
             ->add('heureCloture', TimeType::class, array(
@@ -62,7 +64,16 @@ class EventType extends AbstractType
                 'class' => 'App\Entity\Location',
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionnez un lieu'
-            ))
+            ))->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+                $eventToEdit = $event->getData();
+                $eventHeureDebut = $event->getForm()->get("heureDebut")->getViewData();
+                $eventHeureCloture = $event->getForm()->get("heureCloture")->getViewData();
+
+                $eventToEdit->getDateDebut()->modify("+" . $eventHeureDebut["hour"] . " hours +"
+                    . $eventHeureDebut["minute"] . " minutes");
+                $eventToEdit->getDateCloture()->modify("+" . $eventHeureCloture["hour"] . " hour +"
+                    . $eventHeureCloture["minute"] . " minutes");
+            })
 
         ;
     }

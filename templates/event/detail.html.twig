@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail sortie | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h1>{{ event.name }}</h1>
+    </div>
+    <div class="row">
+        {{ event.dateDebut | date("d/m/Y H:i") }}
+    </div>
+    <div class="row">
+        {{ event.dateCloture | date("d/m/Y H:i") }}
+    </div>
+    <div class="row">
+        {{ event.inscriptionsMax }}
+    </div>
+    <div class="row">
+        {{ event.duration }} heures
+    </div>
+    <div class="row">
+        {{ event.description }}
+    </div>
+    <div class="row">
+        {{ event.site.name }}
+    </div>
+    <div class="row">
+        {{ event.lieu.name }}
+    </div>
+    <div class="row">
+        {{ event.lieu.street }}
+    </div>
+    <div class="row">
+        {{ event.lieu.city.postalCode }}
+    </div>
+    <div class="row">
+        {{ event.lieu.city.name }}
+    </div>
+    <div class="row">
+        {{ event.lieu.latitude }}
+    </div>
+    <div class="row">
+        {{ event.lieu.longitude }}
+    </div>
+    Liste des participants :
+    {% for subscription in event.subscriptions %}
+        <div class="row">
+            {{ subscription.participant.username }} - {{ subscription.participant.name }}
+        </div>
+    {% endfor %}
+
+    {% if event.organisator == app.user %}
+        <a href="{{ path("event_edit", {id: event.id}) }}">Modifier</a>
+    {% endif %}
+{% endblock %}

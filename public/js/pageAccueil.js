@@ -51,10 +51,7 @@ $(document).ready(function() {
 
             return false;
         },
-
     );
-
-
 
     var table = $('#table').DataTable( {
         language: {
@@ -68,10 +65,10 @@ $(document).ready(function() {
             },
         ],
     } );
-// Event listener to the two range filtering inputs to redraw on input
+
+    // Event listener to the two range filtering inputs to redraw on input
     $('#event_filtre_dateMin, #event_filtre_dateMax, #event_filtre_organisateur,#event_filtre_inscrit,#event_filtre_nInscrit,#event_filtre_finie,#event_filtre_site').change(function () {
         table.draw();
     });
-
 
 } );
