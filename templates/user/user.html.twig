@@ -6,15 +6,22 @@
     <div class="text-center">
         <h1 class="title">{{ app.user.username }}</h1>
         <div class="bg-detail text-left">
-            <span class="font-weight-bold">Nom : </span>
-            <p>{{ app.user.name }}</p>
-            <span class="font-weight-bold">Prenom : </span>
-            <p>{{ app.user.firstName }}</p>
-            <span class="font-weight-bold">Télephone : </span>
-            <p>{{ app.user.phone }}</p>
-            <span class="font-weight-bold">Mail : </span>
-            <p>{{ app.user.mail }}</p>
-            <a class="btn btn-primary p-0 mb-3" href="{{ path("user_modify") }}">Modifier</a>
+        <div class="row">
+            <div class="col-md">
+                    <span class="font-weight-bold">Nom : </span>
+                    <p>{{ app.user.name }}</p>
+                    <span class="font-weight-bold">Prenom : </span>
+                    <p>{{ app.user.firstName }}</p>
+                    <span class="font-weight-bold">Télephone : </span>
+                    <p>{{ app.user.phone }}</p>
+                    <span class="font-weight-bold">Mail : </span>
+                    <p>{{ app.user.mail }}</p>
+                    <a class="btn bgBleu text-light p-0 mb-3" href="{{ path("user_modify") }}">Modifier</a>
+                </div>
+            <div class="col-md">
+                <img src="{{ asset('img/profil.png') }}" alt="" width="300">
+            </div>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -3,7 +3,9 @@ $(document).ready(function() {
         function (settings, data, dataIndex) {
             var min = $('#event_filtre_dateMin').datepicker("getDate");
             var max = $('#event_filtre_dateMax').datepicker("getDate");
-            var startDate = new Date(data[1]);
+            var date = data[1].split('/');
+            var startDate = new Date(Date.UTC(date[2], date[1]-1, date[0], 0, 0, 0))
+
             if (min == null && max == null) { return true; }
             if (min == null && startDate <= max) { return true; }
             if (max == null && startDate >= min) { return true; }

@@ -53,5 +53,6 @@ $('#table').DataTable( {
     paging: false,
     recherche:false,
     searching: false,
+    info,
 } );
 
