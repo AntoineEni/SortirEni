@@ -3,9 +3,39 @@
 {% block title %}Modification sortie | {{ parent() }}{% endblock %}
 
 {% block body %}
+    <h3>Modifier une sortie </h3>
     {{ form_start(formEvent) }}
-    {{ form_widget(formEvent) }}
-    <input type="submit" value="Modifier"/>
+    <div class="input-group  mt-3">
+        {{ form_label(formEvent.name) }}
+        {{ form_widget(formEvent.name) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(formEvent.dateDebut) }}
+        {{ form_widget(formEvent.dateDebut) }}
+        {{ form_widget(formEvent.heureDebut) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(formEvent.duration) }}
+        {{ form_widget(formEvent.duration) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(formEvent.dateCloture) }}
+        {{ form_widget(formEvent.dateCloture) }}
+        {{ form_widget(formEvent.heureCloture) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(formEvent.inscriptionsMax) }}
+        {{ form_widget(formEvent.inscriptionsMax) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(formEvent.description) }}
+        {{ form_widget(formEvent.description) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(formEvent.lieu) }}
+        {{ form_widget(formEvent.lieu) }}
+    </div>
+    <input type="submit" class="btn btn-primary mb-3 mt-3" value="Modifier"/>
     {{ form_end(formEvent) }}
 {% endblock %}
 

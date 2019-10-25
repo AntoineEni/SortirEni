@@ -29,38 +29,17 @@
 
         </div>
         <div class="col-md mt-3">
-            <div class="input-group mb-3">
-                {{ form_label(formEvent.organisateur) }}
-
-                <div class="input-group-text">
-                    {{ form_widget(formEvent.organisateur, {'attr': {'value':  app.user.username }}) }}
-                </div>
-            </div>
-            <div class="input-group mb-3">
-                {{ form_label(formEvent.inscrit) }}
-                <div class="input-group-text">
-                    {{ form_widget(formEvent.inscrit) }}
-                </div>
-            </div>
-            <div class="input-group mb-3">
-                {{ form_label(formEvent.nInscrit) }}
-                <div class="input-group-text">
-                    {{ form_widget(formEvent.nInscrit) }}
-                </div>
-            </div>
-            <div class="input-group ">
-                {{ form_label(formEvent.finie) }}
-                <div class="input-group-text">
-                    {{ form_widget(formEvent.finie) }}
-                </div>
-            </div>
+            {{ form_widget(formEvent.organisateur, {'attr': {'value':  app.user.username }}) }}
+            {{ form_label(formEvent.organisateur) }}
+            {{ form_label(formEvent.inscrit) }}
+            {{ form_widget(formEvent.inscrit) }}
+            {{ form_label(formEvent.nInscrit) }}
+            {{ form_widget(formEvent.nInscrit) }}
+            {{ form_widget(formEvent.finie) }}
         </div>
     </div>
     {{ form_end(formEvent) }}
-
-
-
-
+    
     <table id="table" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
         <thead>
         <tr>
@@ -76,20 +55,20 @@
         </tr>
         </thead>
         <tbody>
-            {% for value in sortie %}
-                <td><a href="{{ path("event_detail", {id: value["id"]}) }}">{{ value['name'] }}</a></td>
-                <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
-                <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
-                <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
-                <td>{{ value['state'] }}</td>
-                {% if(value['Participation'] == '1' ) %}
-                    <td>X</td>
-                {% else %}
-                    <td></td>
-                {% endif %}
-                <td>{{ value['username'] }}</td>
+        {% for value in sortie %}
+            <td><a href="{{ path("event_detail", {id: value["id"]}) }}">{{ value['name'] }}</a></td>
+            <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
+            <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
+            <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
+            <td>{{ value['state'] }}</td>
+            {% if(value['Participation'] == '1' ) %}
+                <td>X</td>
+            {% else %}
                 <td></td>
-                <td>{{ value['site'] }}</td>
+            {% endif %}
+            <td>{{ value['username']}}</td>
+            <td></td>
+            <td>{{ value['site']}}</td>
             </tr>
         {% endfor %}
         </tbody>

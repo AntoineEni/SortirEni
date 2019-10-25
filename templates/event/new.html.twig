@@ -3,9 +3,40 @@
 {% block title %}Nouvelle sortie | {{ parent() }}{% endblock %}
 
 {% block body %}
+    <h3>Creer une sortie </h3>
     {{ form_start(form) }}
+    <div class="input-group  mt-3">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(form.dateDebut) }}
+        {{ form_widget(form.dateDebut) }}
+        {{ form_widget(form.heureDebut) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(form.duration) }}
+        {{ form_widget(form.duration) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(form.dateCloture) }}
+        {{ form_widget(form.dateCloture) }}
+        {{ form_widget(form.heureCloture) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(form.inscriptionsMax) }}
+        {{ form_widget(form.inscriptionsMax) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+    </div>
+    <div class="input-group mt-3">
+        {{ form_label(form.lieu) }}
+        {{ form_widget(form.lieu) }}
+    </div>
     {{ form_widget(form) }}
-    <input type="submit" value="Créer">
-    <a href="{{ path("default_index") }}" class="btn btn-primary">Retour</a>
+    <input type="submit" value="Créer" class="btn btn-primary mb-3 mt-3">
+    <a href="{{ path("default_index") }}" class="btn btn-primary mb-3 mt-3">Retour</a>
     {{ form_end(form) }}
 {% endblock %}

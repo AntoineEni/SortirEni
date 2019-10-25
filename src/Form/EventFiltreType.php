@@ -36,28 +36,20 @@ class EventFiltreType extends AbstractType
                 'label_attr'=>['class'=>'input-group-text']
             ))
             ->add('organisateur',CheckboxType::class,array(
-                'attr'=>['id'=>'organisateur','class'=>''],
                 'mapped'=>false,
-                'label' => 'Sortie dont je suis l\'organisateur/trice :',
-                'label_attr'=>['class'=>'form-control']
+                'label' => 'Sortie dont je suis l\'organisateur/trice ',
             ))
             ->add('inscrit',CheckboxType::class,array(
-                'attr'=>['id'=>'inscrit','class'=>''],
                 'mapped'=>false,
-                'label' => 'Sortie auxqelles je suis inscrit/e :',
-                'label_attr'=>['class'=>'form-control']
+                'label' => 'Sortie auxqelles je suis inscrit/e ',
             ))
             ->add('nInscrit',CheckboxType::class,array(
-                'attr'=>['id'=>'Ninscrit','class'=>''],
                 'mapped'=>false,
-                'label' => 'Sortie auxqelles je ne suis pas inscrit/e :',
-                'label_attr'=>['class'=>'form-control']
+                'label' => 'Sortie auxqelles je ne suis pas inscrit/e ',
             ))
             ->add('finie',CheckboxType::class,array(
-                'attr'=>['id'=>'passer','class'=>' '],
                 'mapped'=>false,
-                'label' => 'Sortie passées :',
-                'label_attr'=>['class'=>'form-control']
+                'label' => 'Sortie passées ',
             ))
         ;
     }
