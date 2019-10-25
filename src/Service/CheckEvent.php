@@ -77,8 +77,6 @@ class CheckEvent
                 throw new NotFoundHttpException("Not found event");
             } else if ($event->getOrganisator() === $user) {
                 throw new BadRequestHttpException("Cannot unsubscribe to your own event");
-            } else if ($event->getDateCloture() < new \DateTime()) {
-                throw new BadRequestHttpException("Closure date has been reach, you can't unsubscribe no more");
             } else if ($event->getState() > StateEnum::STATE_CLOSE) {
                 throw new BadRequestHttpException("Cannot unsubscribe to this event");
             } else if (!$this->subscriptionRepository->findOneBy(array("participant" => $user, "event" => $event))) {
@@ -108,6 +106,89 @@ class CheckEvent
                 throw new NotFoundHttpException("Not found event");
             } else if ($event->getOrganisator() !== $user) {
                 throw new AccessDeniedException("Not allowed to edit this event");
+            } else if ($event->getState() !== StateEnum::STATE_CREATE) {
+                throw new BadRequestHttpException("Not allowed to edit a not create event");
+            }
+        } catch (Exception $e) {
+            if ($throwException) {
+                throw $e;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param User $user
+     * @param Event $event
+     * @param bool $throwException
+     * @return bool
+     * @throws Exception
+     */
+    public function canPublishThisEvent(User $user, Event $event, $throwException = false) {
+        try {
+            if ($event == null) {
+                throw new NotFoundHttpException("Not found event");
+            } else if ($event->getOrganisator() !== $user) {
+                throw new AccessDeniedException("Not allowed to publish this event");
+            } else if ($event->getState() != StateEnum::STATE_CREATE) {
+                throw new BadRequestHttpException("Not allowed to publish a not create event");
+            }
+        } catch (Exception $e) {
+            if ($throwException) {
+                throw $e;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param User $user
+     * @param Event $event
+     * @param bool $throwException
+     * @return bool
+     * @throws Exception
+     */
+    public function canRemoveThisEvent(User $user, Event $event, $throwException = false) {
+        try {
+            if ($event == null) {
+                throw new NotFoundHttpException("Not found event");
+            } else if ($event->getOrganisator() !== $user) {
+                throw new AccessDeniedException("Not allowed to remove this event");
+            } else if ($event->getState() !== StateEnum::STATE_CREATE) {
+                throw new BadRequestHttpException("Not allowed to remove this event");
+            }
+        } catch (Exception $e) {
+            if ($throwException) {
+                throw $e;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param User $user
+     * @param Event $event
+     * @param bool $throwException
+     * @return bool
+     * @throws Exception
+     */
+    public function canCancelThisEvent(User $user, Event $event, $throwException = false) {
+        try {
+            if ($event == null) {
+                throw new NotFoundHttpException("Not found event");
+            } else if ($event->getOrganisator() !== $user) {
+                throw new AccessDeniedException("Not allowed to cancel this event");
+            } else if (!in_array($event->getState(), StateEnum::canCancel())) {
+                throw new BadRequestHttpException("Not allowed to cancel this event");
             }
         } catch (Exception $e) {
             if ($throwException) {
@@ -144,6 +225,21 @@ class CheckEvent
                 array(
                     "canUnsubscribeToThisEvent",
                     $this->router->generate("subscription_remove", array("id" => $event->getId())),
+                    "true"),
+            "action_publish" =>
+                array(
+                    "canPublishThisEvent",
+                    $this->router->generate("event_publish", array("id" => $event->getId())),
+                    "true"),
+            "action_remove" =>
+                array(
+                    "canRemoveThisEvent",
+                    $this->router->generate("event_remove", array("id" => $event->getId())),
+                    "true"),
+            "action_cancel" =>
+                array(
+                    "canCancelThisEvent",
+                    $this->router->generate("event_cancel", array("id" => $event->getId())),
                     "true"
                 ));
 

@@ -13,4 +13,8 @@ class StateEnum
     const STATE_FINISHED = 500;
     const STATE_ARCHIVED = 600;
     const STATE_CANCELED = 700;
+
+    public static function canCancel() {
+        return array(self::STATE_OPEN, self::STATE_CLOSE);
+    }
 }
