@@ -3,10 +3,18 @@
 {% block title %}Prophil | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1 class="title">{{ app.user.username }}</h1>
-    <p>Nom : {{ app.user.firstName }}</p>
-    <p>Prenom : {{ app.user.name }}</p>
-    <p>Télephone : {{ app.user.phone }}</p>
-    <p>Mail : {{ app.user.mail }}</p>
-    <a class="btn btn-primary p-0 mb-3" href="{{ path("user_modify") }}">Modifier</a>
+    <div class="text-center">
+        <h1 class="title">{{ app.user.username }}</h1>
+        <div class="bg-detail text-left">
+            <span class="font-weight-bold">Nom : </span>
+            <p>{{ app.user.name }}</p>
+            <span class="font-weight-bold">Prenom : </span>
+            <p>{{ app.user.firstName }}</p>
+            <span class="font-weight-bold">Télephone : </span>
+            <p>{{ app.user.phone }}</p>
+            <span class="font-weight-bold">Mail : </span>
+            <p>{{ app.user.mail }}</p>
+            <a class="btn btn-primary p-0 mb-3" href="{{ path("user_modify") }}">Modifier</a>
+        </div>
+    </div>
 {% endblock %}

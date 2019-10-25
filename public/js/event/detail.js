@@ -35,3 +35,13 @@ function inscrireUserToEvent() {
         }
     });
 }
+$('#table').DataTable( {
+    language: {
+        "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+    },
+    responsive: true,
+    scrollCollapse: true,
+    paging: false,
+    recherche:false,
+    searching: false,
+} );
