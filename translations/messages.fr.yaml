@@ -1,0 +1,25 @@
+title: "| Sortir.com"
+
+home:
+  title: "Accueil"
+  date: "Date du jour : "
+  user: "Participant : "
+  filter: "Filtrer les sorties"
+  createEvent: "Créer une sortie"
+  table:
+    header:
+      date:
+        event: "Date de la sortie"
+        closure: "Fin des inscriptions"
+      event: "Nom de la sortie"
+      subscriber: "Inscrits / Places"
+      state: "Etat"
+      participate: "Inscrit ?"
+      organisator: "Organisateur"
+      actions: "Actions"
+
+event:
+  detail:
+    title: "Détail de la sortie"
+    date:
+      event: "Date de la "

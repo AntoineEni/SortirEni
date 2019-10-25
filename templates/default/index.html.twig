@@ -1,15 +1,15 @@
 {%  extends('base.html.twig') %}
 
-{% block title %}Accueil | {{ parent() }}{% endblock %}
+{% block title %}{{ "home.title"|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
     <div class="row pt-1">
         <div class="col-md">
-            <h5 class="mt-3">Filtrer les sorties</h5>
+            <h5 class="mt-3">{{ "home.filter"|trans }}</h5>
         </div>
         <div class="col-md">
-            <h5 class="mt-3">Date du jour : {{ 'now'|date('d/m/Y') }}</h5>
-            <h5 class="mt-3">Participant : {{ app.user.firstName }}</h5>
+            <h5 class="mt-3">{{ "home.date"|trans }} {{ 'now'|date('d/m/Y') }}</h5>
+            <h5 class="mt-3">{{ "home.user"|trans }} {{ app.user.firstName }}</h5>
         </div>
     </div>
 
@@ -43,15 +43,15 @@
     <table id="table" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
         <thead>
         <tr>
-            <td>Nom de la sortie</td>
-            <td >Date de la sortie</td>
-            <td >Cloture</td>
-            <td>inscrits/places</td>
-            <td>Etat</td>
-            <td>Inscrit</td>
-            <td>Organisateur</td>
-            <td>Action</td>
-            <td>Site</td>
+            <td>{{ "home.table.header.event"|trans }}</td>
+            <td>{{ "home.table.header.date.event"|trans }}</td>
+            <td>{{ "home.table.header.date.closure"|trans }}</td>
+            <td>{{ "home.table.header.subscriber"|trans }}</td>
+            <td>{{ "home.table.header.state"|trans }}</td>
+            <td>{{ "home.table.header.participate"|trans }}</td>
+            <td>{{ "home.table.header.organisator"|trans }}</td>
+            <td>{{ "home.table.header.actions"|trans }}</td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -61,11 +61,7 @@
             <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
             <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
             <td>{{ value['state'] }}</td>
-            {% if(value['Participation'] == '1' ) %}
-                <td>X</td>
-            {% else %}
-                <td></td>
-            {% endif %}
+            <td>{{ (value["Participation"] == "1" ? "X" : "") }}</td>
             <td>{{ value['username']}}</td>
             <td></td>
             <td>{{ value['site']}}</td>
@@ -76,7 +72,7 @@
     </table>
 
     <div>
-        <a href="{{ path("event_create") }}" class="btn btn-primary">Créer une sortie</a>
+        <a href="{{ path("event_create") }}" class="btn btn-primary">{{ "home.createEvent"|trans }}</a>
     </div>
 {% endblock %}
 
