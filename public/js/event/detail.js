@@ -15,6 +15,8 @@ function inscrireUserToEvent() {
                     title: "Inscription réussie",
                     showConfirmButton: false,
                     timer: 1500,
+                }).then((result) => {
+                    window.location.reload();
                 });
             } else {
                 Swal.fire({

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Subscription;
+use App\Service\CheckEventAction;
 use App\Service\StateEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SubscriptionController extends AbstractController
 {
+    private $checkEventAction;
+
+    public function __construct(CheckEventAction $checkEventAction)
+    {
+        $this->checkEventAction = $checkEventAction;
+    }
+
     /**
      * @Route("/subscription/add/{id}", name="subscription_add", requirements={"id"="\d+"})
      * @param $id
@@ -31,21 +39,13 @@ class SubscriptionController extends AbstractController
         $event = $em->getRepository(Event::class)->find($id);
 
         try {
-            if ($event == null) {
-                throw $this->createNotFoundException("Not found event");
-            } else if ($event->getOrganisator() == $this->getUser()) {
-                throw new BadRequestHttpException("Cannot subscriptor to your own event");
-            } else if ($event->getState() != StateEnum::STATE_OPEN) {
-                throw new BadRequestHttpException("Cannot subscribe to not open event");
-            } else if ($em->getRepository(Subscription::class)->findOneBy(array("participant" => $this->getUser(), "event" => $event))) {
-                throw new InvalidArgumentException("You've already subscribe to this event");
-            } else {
-                $subscription = new Subscription();
-                $subscription->setParticipant($this->getUser())->setEvent($event)->setDateInscription(new \DateTime());
+            $this->checkEventAction->canSubscribeToThisEvent($this->getUser(), $event);
 
-                $em->persist($subscription);
-                $em->flush();
-            }
+            $subscription = new Subscription();
+            $subscription->setParticipant($this->getUser())->setEvent($event)->setDateInscription(new \DateTime());
+
+            $em->persist($subscription);
+            $em->flush();
         } catch (\Exception $e) {
             $response["ok"] = false;
             $response["errors"] = $e->getMessage();
