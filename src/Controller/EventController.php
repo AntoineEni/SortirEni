@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\State;
 use App\Form\EventType;
+use App\Service\CheckEvent;
 use App\Service\StateEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -16,6 +17,13 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class EventController extends AbstractController
 {
+    private $checkEventAction;
+
+    public function __construct(CheckEvent $checkEventAction)
+    {
+        $this->checkEventAction = $checkEventAction;
+    }
+
     /**
      * @Route("/event/create", name="event_create")
      * @param Request $request
@@ -51,6 +59,7 @@ class EventController extends AbstractController
      * @param $id
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function detailEvent($id, Request $request)
     {
@@ -64,6 +73,7 @@ class EventController extends AbstractController
 
         return $this->render("event/detail.html.twig", array(
             "event" => $event,
+            "actions" => $this->checkEventAction->getListAction($this->getUser(), $event),
         ));
     }
 
@@ -73,6 +83,7 @@ class EventController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
+     * @throws Exception
      */
     public function editEvent($id, Request $request, EntityManagerInterface $em)
     {
@@ -80,10 +91,11 @@ class EventController extends AbstractController
 
         $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
 
-        if ($event == null) {
-            throw $this->createNotFoundException("Not found event");
-        } else if ($event->getOrganisator() != $this->getUser()) {
-            throw new AccessDeniedException("Not allowed to edit this event");
+        try {
+            $this->checkEventAction->canEditThisEvent($this->getUser(), $event, true);
+        } catch (Exception $e) {
+            $this->addFlash("danger", $e->getMessage());
+            return $this->redirectToRoute("event_detail", array("id" => $id));
         }
 
         $eventForm = $this->createForm(EventType::class, $event);

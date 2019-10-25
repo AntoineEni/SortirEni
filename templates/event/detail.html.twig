@@ -49,11 +49,9 @@
         </div>
     {% endfor %}
 
-    {% if event.organisator == app.user %}
-        <a href="{{ path("event_edit", {id: event.id}) }}">Modifier</a>
-    {% elseif event.state != constant('App\\Service\\StateEnum::STATE_CREATE') %}
-        <button id="inscription" data-url="{{ path("subscription_add", {id: event.id}) }}">Inscription</button>
-    {% endif %}
+    {% for action, detail in actions %}
+        <button id="{{ action }}" data-url="{{ detail.link }}" data-ajax="{{ detail.ajax }}">{{ action }}</button>
+    {% endfor %}
 {% endblock %}
 
 {% block javascripts %}

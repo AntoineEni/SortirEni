@@ -1,39 +1,45 @@
-$("#inscription").on("click", inscrireUserToEvent);
+$("[id^=action_]").on("click", launchRequest);
 
-function inscrireUserToEvent() {
+function launchRequest() {
     var url = $(this).attr("data-url");
-    $.ajax({
-        method: "POST",
-        url: url,
-        beforeSend: function() {
-            $("#loader").removeClass("d-none");
-        },
-        success: function(jsonResponse) {
-            if (jsonResponse.ok) {
-                Swal.fire({
-                    type: "success",
-                    title: "Inscription réussie",
-                    showConfirmButton: false,
-                    timer: 1500,
-                }).then((result) => {
-                    window.location.reload();
-                });
-            } else {
+    var isAjax = $(this).attr("data-ajax");
+
+    if (isAjax === "true") {
+        $.ajax({
+            method: "POST",
+            url: url,
+            beforeSend: function() {
+                $("#loader").removeClass("d-none");
+            },
+            success: function(jsonResponse) {
+                if (jsonResponse.ok) {
+                    Swal.fire({
+                        type: "success",
+                        title: jsonResponse.response,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    }).then((result) => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        type: "error",
+                        title: jsonResponse.response,
+                    });
+                }
+            },
+            error: function(jsonReponse) {
                 Swal.fire({
                     type: "error",
-                    title: jsonResponse.errors,
+                    title: "Something went wrong",
+                    text: "Please try later",
                 });
+            },
+            complete: function() {
+                $("#loader").addClass("d-none");
             }
-        },
-        error: function(jsonReponse) {
-            Swal.fire({
-                type: "error",
-                title: "Something went wrong",
-                text: "Please try later",
-            });
-        },
-        complete: function() {
-            $("#loader").addClass("d-none");
-        }
-    });
+        });
+    } else {
+        window.location.href = url;
+    }
 }
