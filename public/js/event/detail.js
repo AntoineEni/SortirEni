@@ -72,8 +72,8 @@ function launchRequest(url, isAjax) {
             error: function (jsonReponse) {
                 Swal.fire({
                     type: "error",
-                    title: "Something went wrong",
-                    text: "Please try later",
+                    title: Translator.trans("app.baderror"),
+                    text: Translator.trans("app.trylater"),
                 });
             },
             complete: function () {
