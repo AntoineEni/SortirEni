@@ -1,5 +1,21 @@
 title: "| Sortir.com"
 
+header:
+  title: "Sortir.com"
+  city: "Villes"
+  site: "Sites"
+  home: "Accueil"
+  profile: "Mon profil"
+  login: "Connexion"
+  logout: "Déconnexion"
+
+login:
+  title: "Connexion"
+  username: "Nom d'utilisateur"
+  password: "Mot de passe"
+  rememberme: "Se souvenir de moi"
+  confirm: "Connexion"
+
 home:
   title: "Accueil"
   date: "Date du jour : "
@@ -17,9 +33,61 @@ home:
       participate: "Inscrit ?"
       organisator: "Organisateur"
       actions: "Actions"
+    value:
+      state: "{100} Brouillon|{200} Ouvert|{300} Clos|{400} En cours|{500} Terminé|{600} Archivé|{700} Annulé"
 
 event:
   detail:
     title: "Détail de la sortie"
     date:
-      event: "Date de la "
+      event: "Date de la sortie :"
+      cloture: "Fin des inscriptions :"
+    inscriptions: "Nombre maximal d'inscriptions :"
+    duration:
+      label: "Durée :"
+      unit: "minutes"
+    description: "Description :"
+    site: "Site :"
+    location: "Lieu :"
+    postalCode: "Code postal :"
+    city: "Ville :"
+    participant:
+      header:
+        title: "Liste des participants :"
+        pseudo: "Pseudo :"
+        name: "Nom :"
+  edit:
+    title: "Modification de la sortie"
+    confirm: "Modifier"
+  new:
+    title: "Créer une sortie"
+    confirm: "Créer"
+    return: "Retour"
+
+action:
+  subscribe: "S'inscrire"
+  edit: "Modifier"
+  unsubscribe: "Se désinscrire"
+  publish: "Publier"
+  remove: "Supprimer"
+  cancel: "Annuler"
+
+user:
+  update:
+    title: "Modification du profil"
+    confirm: "Modifier"
+  profile:
+    title: "Mon profil"
+    name: "Nom :"
+    firstname: "Prénom :"
+    phone: "Téléphone :"
+    mail: "Adresse mail :"
+    confirm: "Modifier"
+
+form:
+  eventfilter:
+    site: "Sélectionnez un site"
+    organisator: "Sorties dont je suis l'oganisateur.rice"
+    inscrit: "Sorties auxquelles je suis inscrit.e"
+    nInscrit: "Sorties auxquelles je ne suis pas inscrit.e"
+    fini: "Sorties passées"

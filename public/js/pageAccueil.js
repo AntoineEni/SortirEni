@@ -44,10 +44,11 @@ $(document).ready(function() {
             return false;
         },
         function (settings, data, dataIndex) {
-            var filtreSite =$('#event_filtre_site option:selected').text();
+            var filtreSiteVal = $('#event_filtre_site option:selected').val();
+            var filtreSiteLabel = $('#event_filtre_site option:selected').text();
             var inscrit = data[8];
-            if (filtreSite == 'Sélectionnez un lieu') { return true; }
-            if (filtreSite != false && inscrit == filtreSite ) {  return true; }
+            if (filtreSiteVal === null || typeof filtreSiteVal === "undefined" || filtreSiteVal === "") { return true; }
+            if (filtreSiteLabel != false && inscrit == filtreSiteLabel ) {  return true; }
 
             return false;
         },

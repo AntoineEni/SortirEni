@@ -60,7 +60,7 @@
             <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
             <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
             <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
-            <td>{{ value['state'] }}</td>
+            <td>{{ "home.table.value.state"|transchoice(value['state']) }}</td>
             <td>{{ (value["Participation"] == "1" ? "X" : "") }}</td>
             <td>{{ value['username']}}</td>
             <td></td>

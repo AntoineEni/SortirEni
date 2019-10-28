@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification sortie | {{ parent() }}{% endblock %}
+{% block title %}{{ "event.edit.title"|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h3>Modifier une sortie </h3>
+    <h3>{{ "event.edit.title"|trans }}</h3>
     {{ form_start(formEvent) }}
     <div class="input-group  mt-3">
         {{ form_label(formEvent.name) }}
@@ -35,7 +35,7 @@
         {{ form_label(formEvent.lieu) }}
         {{ form_widget(formEvent.lieu) }}
     </div>
-    <input type="submit" class="btn btn-primary mb-3 mt-3" value="Modifier"/>
+    <input type="submit" class="btn btn-primary mb-3 mt-3" value="{{ "event.edit.confirm"|trans }}"/>
     {{ form_end(formEvent) }}
 {% endblock %}
 

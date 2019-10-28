@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle sortie | {{ parent() }}{% endblock %}
+{% block title %}{{ "event.new.title"|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h3>Creer une sortie </h3>
+    <h3>{{ "event.new.title"|trans }}</h3>
     {{ form_start(form) }}
     <div class="input-group  mt-3">
         {{ form_label(form.name) }}
@@ -36,7 +36,7 @@
         {{ form_widget(form.lieu) }}
     </div>
     {{ form_widget(form) }}
-    <input type="submit" value="Créer" class="btn btn-primary mb-3 mt-3">
-    <a href="{{ path("default_index") }}" class="btn btn-primary mb-3 mt-3">Retour</a>
+    <input type="submit" value="{{ "event.new.confirm"|trans }}" class="btn btn-primary mb-3 mt-3">
+    <a href="{{ path("default_index") }}" class="btn btn-primary mb-3 mt-3">{{ "event.new.return"|trans }}</a>
     {{ form_end(form) }}
 {% endblock %}

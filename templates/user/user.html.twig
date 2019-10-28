@@ -1,20 +1,20 @@
 {%  extends('base.html.twig') %}
 
-{% block title %}Prophil | {{ parent() }}{% endblock %}
+{% block title %}{{ "user.profile.title"|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
     <div class="text-center">
         <h1 class="title">{{ app.user.username }}</h1>
         <div class="bg-detail text-left">
-            <span class="font-weight-bold">Nom : </span>
+            <span class="font-weight-bold">{{ "user.profile.name"|trans }}</span>
             <p>{{ app.user.name }}</p>
-            <span class="font-weight-bold">Prenom : </span>
+            <span class="font-weight-bold">{{ "user.profile.firstname"|trans }}</span>
             <p>{{ app.user.firstName }}</p>
-            <span class="font-weight-bold">Télephone : </span>
+            <span class="font-weight-bold">{{ "user.profile.phone"|trans }}</span>
             <p>{{ app.user.phone }}</p>
-            <span class="font-weight-bold">Mail : </span>
+            <span class="font-weight-bold">{{ "user.profile.mail"|trans }}</span>
             <p>{{ app.user.mail }}</p>
-            <a class="btn btn-primary p-0 mb-3" href="{{ path("user_modify") }}">Modifier</a>
+            <a class="btn btn-primary p-0 mb-3" href="{{ path("user_modify") }}">{{ "user.profile.confirm"|trans }}</a>
         </div>
     </div>
 {% endblock %}

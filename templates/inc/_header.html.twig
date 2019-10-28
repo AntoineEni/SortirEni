@@ -4,27 +4,27 @@
             <span class="navbar-toggler-icon">X</span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand  mr-auto" href="{{ path("default_index") }}">Sortie.com</a>
+            <a class="navbar-brand  mr-auto" href="{{ path("default_index") }}">{{ "header.title"|trans }}</a>
             <ul class="navbar-nav  mt-2 mt-lg-0 text-light">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Villes</a>
+                        <a class="nav-link" href="#">{{ "header.city"|trans }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sites</a>
+                        <a class="nav-link" href="#">{{ "header.site"|trans }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("default_index") }}">Accueil</a>
+                        <a class="nav-link" href="{{ path("default_index") }}">{{ "header.home"|trans }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("user_profil") }}">Mon profil</a>
+                        <a class="nav-link" href="{{ path("user_profil") }}">{{ "header.profile"|trans }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("security_logout") }}">Déconnexion</a>
+                        <a class="nav-link" href="{{ path("security_logout") }}">{{ "header.logout"|trans }}</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("security_login") }}">Connexion</a>
+                        <a class="nav-link" href="{{ path("security_login") }}">{{ "header.login"|trans }}</a>
                     </li>
                 {% endif %}
             </ul>
