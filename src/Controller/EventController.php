@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\State;
 use App\Form\EventType;
+use App\Form\LocationType;
 use App\Service\CheckEvent;
 use App\Service\StateEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use App\Entity\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,8 +52,18 @@ class EventController extends AbstractController
             return $this->redirectToRoute("event_detail", array("id" => $event->getId()));
         }
 
+        $location = new Location();
+        $formLocation = $this->createForm(LocationType::class, $location);
+        $formLocation->handleRequest($request);
+
+        if ($formLocation->isSubmitted() && $formLocation->isValid())
+        {
+            $em->persist($location);
+            $em->flush();
+        }
         return $this->render('event/new.html.twig', [
             'form' => $formEvent->createView(),
+            'formLocation' => $formLocation->createView(),
         ]);
     }
 
