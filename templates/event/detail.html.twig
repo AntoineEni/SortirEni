@@ -110,7 +110,7 @@
                         </thead>
                         {% for subscription in event.subscriptions %}
                             <tr>
-                                <td>{{ subscription.participant.username }}</td>
+                                <td><a href="{{ path('user_by_pseudo',{'pseudo': subscription.participant.username}) }}">{{ subscription.participant.username }}</a></td>
                                 <td>{{subscription.participant.name}} {{subscription.participant.firstName}}</td>
                             </tr>
                         {% endfor %}

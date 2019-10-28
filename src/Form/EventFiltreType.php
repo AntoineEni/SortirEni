@@ -26,8 +26,8 @@ class EventFiltreType extends AbstractType
             ->add('dateMin',TextType::class,array(
                 'attr'=>['id'=>'min','class'=>'form-control js-datepicker'],
                 'mapped'=>false,
-                'label' => 'To',
-                'label_attr'=>['class'=>'input-group-text']
+                'label' => ' ',
+                'label_attr'=>['class'=>'input-group-text fas fa-calendar-alt']
             ))
             ->add('dateMax',TextType::class,array(
                 'attr'=>['id'=>'max','class'=>'form-control js-datepicker'],

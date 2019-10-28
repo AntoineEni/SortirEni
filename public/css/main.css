@@ -1,6 +1,9 @@
 body{
     color: #3182B5;
 }
+.font-user{
+    font-size: 280px;
+}
 .page{
     background-color: white;
     border-radius: 30px;

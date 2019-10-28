@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,10 @@ class UserController extends AbstractController
      * @Route("/user", name="user_profil")
      */
     public function profilUser(){
-        return $this->render('user/user.html.twig');
+        $user = $this->getUser();
+        return $this->render('user/user.html.twig',[
+            'user'=>$user,
+        ]);
     }
     /**
      * @Route("/user/update", name="user_modify")
@@ -58,6 +62,16 @@ class UserController extends AbstractController
         }
         return $this->render('user/update.html.twig', [
             "userForm" => $userForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/user/detail/{pseudo}", name="user_by_pseudo")
+     */
+    public function userByPseudo($pseudo){
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$pseudo]);
+        return $this->render('user/user.html.twig',[
+            'user'=>$user,
         ]);
     }
 }

@@ -4,22 +4,24 @@
 
 {% block body %}
     <div class="text-center">
-        <h1 class="title">{{ app.user.username }}</h1>
+        <h1 class="title">{{ user.username }}</h1>
         <div class="bg-detail text-left">
         <div class="row">
             <div class="col-md">
                     <span class="font-weight-bold">Nom : </span>
-                    <p>{{ app.user.name }}</p>
+                    <p>{{ user.name }}</p>
                     <span class="font-weight-bold">Prenom : </span>
-                    <p>{{ app.user.firstName }}</p>
+                    <p>{{ user.firstName }}</p>
                     <span class="font-weight-bold">Télephone : </span>
-                    <p>{{ app.user.phone }}</p>
+                    <p>{{ user.phone }}</p>
                     <span class="font-weight-bold">Mail : </span>
-                    <p>{{ app.user.mail }}</p>
+                    <p>{{ user.mail }}</p>
+                {% if(app.user.username == user.username) %}
                     <a class="btn bgBleu text-light p-0 mb-3" href="{{ path("user_modify") }}">Modifier</a>
+                {% endif %}
                 </div>
             <div class="col-md">
-                <img src="{{ asset('img/profil.png') }}" alt="" width="300">
+                <i class="far fa-user font-user" ></i>
             </div>
             </div>
         </div>
