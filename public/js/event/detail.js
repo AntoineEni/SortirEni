@@ -51,8 +51,8 @@ $('#table').DataTable( {
     responsive: true,
     scrollCollapse: true,
     paging: false,
-    recherche:false,
+    recherche: false,
     searching: false,
-    info,
+    info: false,
 } );
 
