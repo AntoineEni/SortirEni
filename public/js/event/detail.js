@@ -1,9 +1,50 @@
-$("[id^=action_]").on("click", launchRequest);
+$("[id^=action_]").on("click", redirectToGoodFunction);
 
-function launchRequest() {
+function redirectToGoodFunction() {
+    var id = $(this).attr("id");
     var url = $(this).attr("data-url");
     var isAjax = $(this).attr("data-ajax");
 
+    var fn =  window[id.split("_")[1]];
+
+    if (typeof fn === "function") {
+        fn.apply(null, [url, isAjax]);
+    } else {
+        launchRequest(url, isAjax);
+    }
+}
+
+function publish(url, isAjax) {
+    confirmAndRequest(url, isAjax, "publish");
+}
+
+function remove(url, isAjax) {
+    confirmAndRequest(url, isAjax, "remove");
+}
+
+function cancel(url, isAjax) {
+    confirmAndRequest(url, isAjax, "cancel");
+}
+
+function confirmAndRequest(url, isAjax, type) {
+    $("#loader").removeClass("d-none");
+    Swal.fire({
+        type: "warning",
+        title: Translator.trans("event.detail.swal." + type + ".title"),
+        text: Translator.trans("event.detail.swal." + type + ".text"),
+        allowOutsideClick: false,
+        showCancelButton: true,
+        cancelButtonText: Translator.trans("app.cancel"),
+    }).then((result) => {
+        if (result.value) {
+            launchRequest(url, isAjax);
+        } else {
+            $("#loader").addClass("d-none");
+        }
+    });
+}
+
+function launchRequest(url, isAjax) {
     if (isAjax === "true") {
         $.ajax({
             method: "POST",
@@ -44,9 +85,9 @@ function launchRequest() {
     }
 }
 
-$('#table').DataTable( {
+$('#table').DataTable({
     language: {
-        "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+        "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json",
     },
     responsive: true,
     scrollCollapse: true,
@@ -54,5 +95,5 @@ $('#table').DataTable( {
     recherche: false,
     searching: false,
     info: false,
-} );
+});
 

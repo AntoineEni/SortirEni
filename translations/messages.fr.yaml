@@ -1,5 +1,8 @@
 title: "| Sortir.com"
 
+app:
+  cancel: "Retour"
+
 header:
   title: "Sortir.com"
   city: "Villes"
@@ -59,6 +62,16 @@ event:
         title: "Liste des participants :"
         pseudo: "Pseudo :"
         name: "Nom :"
+    swal:
+      publish:
+        title: "Êtes-vous sûr ?"
+        text: "La publication est une action irréversible"
+      remove:
+        title: "Êtes-vous sûr ?"
+        text: "La suppression est une action irréversible"
+      cancel:
+        title: "Êtes-vous sûr ?"
+        text: "L'annulation est une action irréversible"
   edit:
     title: "Modification de la sortie"
     confirm: "Modifier"
