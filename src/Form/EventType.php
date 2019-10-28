@@ -25,7 +25,7 @@ class EventType extends AbstractType
             ->add('name', TextType::class, array(
                 "label" => "Titre de l'evenement",
                 'attr' => ['class' => 'form-control'],
-                'label_attr'=>['class'=>'input-group-text']
+                'label_attr'=>['class'=>'']
             ))
             ->add('dateDebut', DateType::class, array(
                 "label" => "Date de début",
@@ -33,18 +33,18 @@ class EventType extends AbstractType
                 'html5' => false,
                 'format' => 'dd/MM/yyyy',
                 'attr' => ['class' => 'js-datepicker form-control'],
-                'label_attr'=>['class'=>'input-group-text']
+                'label_attr'=>['class'=>'']
             ))
             ->add('heureDebut', TimeType::class, array(
                 "label" => "as",
                 "mapped" => false,
                 "minutes" => range(00, 50, 10),
-                'label_attr'=>['class'=>'input-group-text'],
+                'label_attr'=>['class'=>''],
 
             ))
             ->add('duration', IntegerType::class, array(
                 "label" => "Durée (en heures)",
-                'label_attr'=>['class'=>'input-group-text'],
+                'label_attr'=>['class'=>''],
             ))
             ->add('dateCloture', DateType::class, array(
                 "label" => "Date de fin d'inscription",
@@ -52,7 +52,7 @@ class EventType extends AbstractType
                 'html5' => false,
                 'format' => 'dd/MM/yyyy',
                 'attr' => ['class' => 'js-datepicker'],
-                'label_attr'=>['class'=>'input-group-text']
+                'label_attr'=>['class'=>'']
             ))
             ->add('heureCloture', TimeType::class, array(
                 "label" => "Heure de fin d'inscription",
@@ -61,18 +61,18 @@ class EventType extends AbstractType
             ))
             ->add('inscriptionsMax', IntegerType::class, array(
                 "label" => "Nombre maximum d'inscrits",
-                'label_attr'=>['class'=>'input-group-text'],
+                'label_attr'=>['class'=>''],
             ))
             ->add('description', TextareaType::class, array(
                 "label" => "Description",
                 "required" => false,
-                'label_attr'=>['class'=>'input-group-text'],
+                'label_attr'=>['class'=>''],
             ))
             ->add('lieu', EntityType::class, array(
                 "label" => "Lieu de l'événement",
                 'class' => 'App\Entity\Location',
                 'choice_label' => 'name',
-                'label_attr'=>['class'=>'input-group-text'],
+                'label_attr'=>['class'=>''],
                 'placeholder' => 'Sélectionnez un lieu'
             ))->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
                 $eventToEdit = $event->getData();

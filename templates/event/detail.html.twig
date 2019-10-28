@@ -7,72 +7,124 @@
         <div class="">
             <h1>{{ event.name }}</h1>
         </div>
-        <div class="bg-detail text-dark text-left">
-            <span class="font-weight-bold">Date debut :</span>
-            <div class="">
-                {{ event.dateDebut | date("d/m/Y H:i") }}
-            </div>
-            <span class="font-weight-bold">Date cloture :</span>
-            <div class="">
-                {{ event.dateCloture | date("d/m/Y H:i") }}
-            </div>
-            <span class="font-weight-bold">Inscription max : </span>
-            <div class="">
-                {{ event.inscriptionsMax }}
-            </div>
-            <span class="font-weight-bold">Durrées : </span>
-            <div class="">
-                {{ event.duration }} heures
-            </div>
-            <span class="font-weight-bold">Description : </span>
-            <div class="">
-                {{ event.description }}
-            </div>
-            <span class="font-weight-bold">Site : </span>
-            <div class="">
-                {{ event.site.name }}
-            </div>
-            <span class="font-weight-bold">Lieu : </span>
-            <div class="">
-                {{ event.lieu.name }}
-            </div>
-            <span class="font-weight-bold"></span>
-            <div class="">
-                {{ event.lieu.street }}
-            </div>
-            <span class="font-weight-bold">Code postal du lieu : </span>
-            <div class="">
-                {{ event.lieu.city.postalCode }}
-            </div>
-            <span class="font-weight-bold">Ville du lieu : </span>
-            <div class="">
-                {{ event.lieu.city.name }}
-            </div>
-            <span class="font-weight-bold"></span>
-            <div class="">
-                {{ event.lieu.latitude }}
-            </div>
-            <span class="font-weight-bold"></span>
-            <div class="">
-                {{ event.lieu.longitude }}
-            </div>
-            <span class="font-weight-bold">Liste des participants :</span>
-            <table id="table" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
-                <thead>
-                <th>Pseudo</th>
-                <th>Nom</th>
-                </thead>
-                {% for subscription in event.subscriptions %}
-                    <tr>
-                        <td>{{ subscription.participant.username }}</td>
-                        <td>{{subscription.participant.name}} {{subscription.participant.firstName}}</td>
-                    </tr>
-                {% endfor %}
-            </table>
+        <div class="bg-detail  text-left">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Date debut :</span>
+                    <div class="">
+                        {{ event.dateDebut | date("d/m/Y H:i") }}
+                    </div>
+                </div>
 
-            {% for action, detail in actions %}
-                <button id="{{ action }}" data-url="{{ detail.link }}" data-ajax="{{ detail.ajax }}">{{ action }}</button>
-            {% endfor %}
+                <div class="col-md-4">
+
+                    <span class="font-weight-bold">Date cloture :</span>
+                    <div class="">
+                        {{ event.dateCloture | date("d/m/Y H:i") }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                    <span class="font-weight-bold">Inscription max : </span>
+                    <div class="">
+                        {{ event.inscriptionsMax }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                    <span class="font-weight-bold">Durrées : </span>
+                    <div class="">
+                        {{ event.duration }} heures
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Description : </span>
+                    <div class="">
+                        {{ event.description }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Site : </span>
+                    <div class="">
+                        {{ event.site.name }}
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Lieu : </span>
+                    <div class="">
+                        {{ event.lieu.name }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Code postal du lieu : </span>
+                    <div class="">
+                        {{ event.lieu.city.postalCode }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <span class="font-weight-bold">Ville du lieu : </span>
+                    <div class="">
+                        {{ event.lieu.city.name }}
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <span class="font-weight-bold"></span>
+                    <div class="">
+                        {{ event.lieu.street }}
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <span class="font-weight-bold"></span>
+                    <div class="">
+                        {{ event.lieu.latitude }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <span class="font-weight-bold"></span>
+                    <div class="">
+                        {{ event.lieu.longitude }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="font-weight-bold">Liste des participants :</span>
+                    <table id="table" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
+                        <thead>
+                        <th>Pseudo</th>
+                        <th>Nom</th>
+                        </thead>
+                        {% for subscription in event.subscriptions %}
+                            <tr>
+                                <td><a href="{{ path('user_by_pseudo',{'pseudo': subscription.participant.username}) }}">{{ subscription.participant.username }}</a></td>
+                                <td>{{subscription.participant.name}} {{subscription.participant.firstName}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                    {% for action, detail in actions %}
+                        <button class="btn text-light bgBleu" id="{{ action }}" data-url="{{ detail.link }}" data-ajax="{{ detail.ajax }}">{{ action }}</button>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+
+
 
         </div>
     </div>
