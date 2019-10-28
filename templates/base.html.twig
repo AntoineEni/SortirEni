@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('css/header.css') }}">
-        <title>{% block title %}Sortir.com{% endblock %}</title>
+        <title>{% block title %}{{ "title"|trans }}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>

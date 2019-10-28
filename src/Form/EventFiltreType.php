@@ -9,9 +9,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EventFiltreType extends AbstractType
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -19,7 +27,7 @@ class EventFiltreType extends AbstractType
                 'class' => 'App\Entity\Site',
                 'label' => 'Site',
                 'choice_label' => 'name',
-                'placeholder' => 'Sélectionnez un lieu',
+                'placeholder' => $this->translator->trans("form.eventfilter.site"),
                 'attr'=>['id'=>'site','class'=>'form-control'],
                 'label_attr'=>['class'=>'input-group-text']
             ))
@@ -37,19 +45,19 @@ class EventFiltreType extends AbstractType
             ))
             ->add('organisateur',CheckboxType::class,array(
                 'mapped'=>false,
-                'label' => 'Sortie dont je suis l\'organisateur/trice ',
+                'label' => $this->translator->trans("form.eventfilter.organisator"),
             ))
             ->add('inscrit',CheckboxType::class,array(
                 'mapped'=>false,
-                'label' => 'Sortie auxqelles je suis inscrit/e ',
+                'label' => $this->translator->trans("form.eventfilter.inscrit"),
             ))
             ->add('nInscrit',CheckboxType::class,array(
                 'mapped'=>false,
-                'label' => 'Sortie auxqelles je ne suis pas inscrit/e ',
+                'label' => $this->translator->trans("form.eventfilter.nInscrit"),
             ))
             ->add('finie',CheckboxType::class,array(
                 'mapped'=>false,
-                'label' => 'Sortie passées ',
+                'label' => $this->translator->trans("form.eventfilter.fini"),
             ))
         ;
     }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail sortie | {{ parent() }}{% endblock %}
+{% block title %}{{ "event.detail.title"|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
     <div class="text-center">
@@ -10,7 +10,7 @@
         <div class="bg-detail  text-left">
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <span class="font-weight-bold">Date debut :</span>
+                    <span class="font-weight-bold">{{ "event.detail.date.event"|trans }}</span>
                     <div class="">
                         {{ event.dateDebut | date("d/m/Y H:i") }}
                     </div>
@@ -18,7 +18,7 @@
 
                 <div class="col-md-4">
 
-                    <span class="font-weight-bold">Date cloture :</span>
+                    <span class="font-weight-bold">{{ "event.detail.date.cloture"|trans }}</span>
                     <div class="">
                         {{ event.dateCloture | date("d/m/Y H:i") }}
                     </div>
@@ -26,7 +26,7 @@
 
                 <div class="col-md-4">
 
-                    <span class="font-weight-bold">Inscription max : </span>
+                    <span class="font-weight-bold">{{ "event.detail.inscriptions"|trans }}</span>
                     <div class="">
                         {{ event.inscriptionsMax }}
                     </div>
@@ -36,21 +36,21 @@
             <div class="row">
                 <div class="col-md-4">
 
-                    <span class="font-weight-bold">Durrées : </span>
+                    <span class="font-weight-bold">{{ "event.detail.duration.label"|trans }}</span>
                     <div class="">
-                        {{ event.duration }} heures
+                        {{ event.duration }} {{ "event.detail.duration.unit"|trans }}
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <span class="font-weight-bold">Description : </span>
+                    <span class="font-weight-bold">{{ "event.detail.description"|trans }}</span>
                     <div class="">
                         {{ event.description }}
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <span class="font-weight-bold">Site : </span>
+                    <span class="font-weight-bold">{{ "event.detail.site"|trans }}</span>
                     <div class="">
                         {{ event.site.name }}
                     </div>
@@ -58,20 +58,20 @@
             </div>
             <div class="row mt-3">
                 <div class="col-md-4">
-                    <span class="font-weight-bold">Lieu : </span>
+                    <span class="font-weight-bold">{{ "event.detail.location"|trans }}</span>
                     <div class="">
                         {{ event.lieu.name }}
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <span class="font-weight-bold">Code postal du lieu : </span>
+                    <span class="font-weight-bold">{{ "event.detail.postalCode"|trans }}</span>
                     <div class="">
                         {{ event.lieu.city.postalCode }}
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <span class="font-weight-bold">Ville du lieu : </span>
+                    <span class="font-weight-bold">{{ "event.detail.city"|trans }}</span>
                     <div class="">
                         {{ event.lieu.city.name }}
                     </div>
@@ -102,11 +102,11 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <span class="font-weight-bold">Liste des participants :</span>
+                    <span class="font-weight-bold">{{ "event.detail.participant.header.title"|trans }}</span>
                     <table id="table" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
                         <thead>
-                        <th>Pseudo</th>
-                        <th>Nom</th>
+                            <th>{{ "event.detail.participant.header.pseudo"|trans }}</th>
+                            <th>{{ "event.detail.participant.header.name"|trans }}</th>
                         </thead>
                         {% for subscription in event.subscriptions %}
                             <tr>
@@ -117,15 +117,10 @@
                     </table>
 
                     {% for action, detail in actions %}
-                        <button class="btn text-light bgBleu" id="{{ action }}" data-url="{{ detail.link }}" data-ajax="{{ detail.ajax }}">{{ action }}</button>
+                        <button class="btn text-light bgBleu" id="{{ action }}" data-url="{{ detail.link }}" data-ajax="{{ detail.ajax }}">{{ detail.name }}</button>
                     {% endfor %}
                 </div>
-
             </div>
-
-
-
-
         </div>
     </div>
 {% endblock %}

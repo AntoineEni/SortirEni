@@ -13,24 +13,29 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CheckEvent
 {
     private $subscriptionRepository;
     private $em;
     private $router;
+    private $translator;
 
     /**
      * CheckEvent constructor.
      * @param SubscriptionRepository $subscriptionRepository
      * @param EntityManagerInterface $em
      * @param UrlGeneratorInterface $router
+     * @param TranslatorInterface $translator
      */
-    public function __construct(SubscriptionRepository $subscriptionRepository, EntityManagerInterface $em, UrlGeneratorInterface $router)
+    public function __construct(SubscriptionRepository $subscriptionRepository, EntityManagerInterface $em,
+                                UrlGeneratorInterface $router, TranslatorInterface $translator)
     {
         $this->subscriptionRepository = $subscriptionRepository;
         $this->em = $em;
         $this->router = $router;
+        $this->translator = $translator;
     }
 
     /**
@@ -245,7 +250,7 @@ class CheckEvent
 
         foreach ($functions as $key => $value) {
             if (call_user_func_array(array(__NAMESPACE__ . "\CheckEvent", $value[0]), array($user, $event))) {
-                $actions[$key] = array("link" => $value[1], "ajax" => $value[2]);
+                $actions[$key] = array("link" => $value[1], "ajax" => $value[2], "name" => $this->translator->trans(str_replace("_", ".", $key)));
             }
         }
 
