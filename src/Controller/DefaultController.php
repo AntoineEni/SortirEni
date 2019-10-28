@@ -22,7 +22,6 @@ class DefaultController extends AbstractController
         $event = new Event();
         $formEvent = $this->createForm(EventFiltreType::class, $event);
 
-
         return $this->render('default/index.html.twig', [
             'sortie' => $sortie,
             'formEvent'=>$formEvent->createView(),
