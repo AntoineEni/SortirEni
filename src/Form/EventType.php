@@ -43,7 +43,7 @@ class EventType extends AbstractType
 
             ))
             ->add('duration', IntegerType::class, array(
-                "label" => "Durée (en heures)",
+                "label" => "Durée (en minutes)",
                 'label_attr'=>['class'=>''],
             ))
             ->add('dateCloture', DateType::class, array(
