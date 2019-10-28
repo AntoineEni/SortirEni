@@ -35,7 +35,7 @@ class Event
     private $dateDebut;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $duration;
 
