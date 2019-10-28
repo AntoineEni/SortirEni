@@ -62,7 +62,7 @@ class EventFixtureCommand extends Command
 
             $event->setName($this->faker->name());
             $event->setDateDebut($date);
-            $event->setDuration($this->faker->optional($chancesOfValue = 0.5)->numberBetween($min = 1000, $max = 9000));
+            $event->setDuration($this->faker->numberBetween($min = 1000, $max = 9000));
             $event->setDateCloture($this->faker->dateTimeBetween($startDate = "- 3 months",$date));
             $event->setInscriptionsMax($this->faker->numberBetween($min = 1000, $max = 9000));
             $event->setDescription($this->faker->optional($chancesOfValue = 0.5)->text(500));
