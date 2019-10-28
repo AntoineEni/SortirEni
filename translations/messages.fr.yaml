@@ -51,6 +51,9 @@ event:
     location: "Lieu :"
     postalCode: "Code postal :"
     city: "Ville :"
+    street: "Adresse :"
+    latitude: "lagitude :"
+    longitude: "longitude :"
     participant:
       header:
         title: "Liste des participants :"
