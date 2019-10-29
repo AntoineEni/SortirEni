@@ -31,8 +31,9 @@ $(document).ready(function() {
         function (settings, data, dataIndex) {
             var Ninscrit = $('#event_filtre_nInscrit').is(':checked');
             var inscrit = data[5];
+            var organisateur = data[6];
             if (!Ninscrit) { return true; }
-            if (inscrit != 'X' && Ninscrit) { return true; }
+            else if (inscrit !== 'X' && organisateur !== $('#event_filtre_organisateur').attr('value')) { return true; }
 
             return false;
         },
