@@ -40,7 +40,7 @@
     </div>
     {{ form_end(formEvent) }}
 
-    <table id="table" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
+    <table id="tableAccueil" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
         <thead>
         <tr>
             <td>{{ "home.table.header.event"|trans }}</td>
@@ -64,7 +64,14 @@
                 <td>{{ "home.table.value.state"|transchoice(value['state']) }}</td>
                 <td>{{ (value["Participation"] == "1" ? "X" : "") }}</td>
                 <td><a href="{{ path('user_by_pseudo',{'pseudo':  value['username']}) }}">{{ value['username']}}</a></td>
-                <td></td>
+                <td>
+                    {% for action, detail in value['actions'] %}
+                        <button class="btn text-light bgBleu" id="{{ action }}_{{ value['id'] }}" data-url="{{ detail.link }}"
+                                data-ajax="{{ detail.ajax }}">
+                            {{ detail.name }}
+                        </button>
+                    {% endfor %}
+                </td>
                 <td>{{ value['site']}}</td>
             </tr>
         {% endfor %}
@@ -78,6 +85,8 @@
 {% endblock %}
 
 {% block javascripts %}
+
+    <script src="{{ asset("js/event/detail.js") }}"></script>
     <script src="{{ asset("js/pageAccueil.js") }}"></script>
 {% endblock %}
 

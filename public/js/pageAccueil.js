@@ -56,7 +56,7 @@ $(document).ready(function() {
         },
     );
 
-    var table = $('#table').DataTable( {
+    var table = $('#tableAccueil').DataTable( {
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
         },
@@ -65,6 +65,10 @@ $(document).ready(function() {
             {
                 "targets": [ 8 ],
                 "visible": false,
+            },
+            {
+                "targets": [ 7 ],
+                responsivePriority: 1,
             },
         ],
     } );
@@ -75,3 +79,4 @@ $(document).ready(function() {
     });
 
 } );
+
