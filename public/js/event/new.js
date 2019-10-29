@@ -21,6 +21,7 @@ $("#modalAddLocation").on("submit", "form", function(e) {
                     $("#event_lieu").append(new Option(location[1], location[0]));
                     $("#modalAddLocation").modal("hide");
                     $("#event_lieu option[value=" + location[0] + "]").attr('selected','selected');
+                    $("#formAddLocation").trigger("reset");
                 });
             } else {
                 Swal.fire({
