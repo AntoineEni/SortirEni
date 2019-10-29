@@ -52,7 +52,7 @@
             {{ form_label(form.lieu) }}
             <div class="input-group">
                 {{ form_widget(form.lieu) }}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAddLocation">
                     <i class="far fa-plus-square"></i>
                 </button>
             </div>
@@ -62,11 +62,11 @@
         <a href="{{ path("default_index") }}" class="btn btn-primary mb-3 mt-3 bgBleu">{{ "event.new.return"|trans }}</a>
         {{ form_end(form) }}
     </div>
-    <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal" id="modalAddLocation" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">{{ "event.new.location.title"|trans }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,10 +74,16 @@
                 <div class="modal-body">
                     {{  form_start(formLocation) }}
                     {{ form_widget(formLocation) }}
-                    <input type="submit" value="valider">
+                    <button id="submitFormLocation" type="submit" data-url="{{ path("location_add") }}">
+                        {{ "event.new.location.confirm"|trans }}
+                    </button>
                     {{  form_end(formLocation) }}
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("js/event/new.js") }}"></script>
 {% endblock %}

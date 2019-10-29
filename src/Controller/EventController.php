@@ -52,15 +52,8 @@ class EventController extends AbstractController
             return $this->redirectToRoute("event_detail", array("id" => $event->getId()));
         }
 
-        $location = new Location();
-        $formLocation = $this->createForm(LocationType::class, $location);
-        $formLocation->handleRequest($request);
+        $formLocation = $this->createForm(LocationType::class, new Location());
 
-        if ($formLocation->isSubmitted() && $formLocation->isValid())
-        {
-            $em->persist($location);
-            $em->flush();
-        }
         return $this->render('event/new.html.twig', [
             'form' => $formEvent->createView(),
             'formLocation' => $formLocation->createView(),
