@@ -17,11 +17,16 @@ class StateEnum
     public static function canCancel() {
         return array(self::STATE_OPEN, self::STATE_CLOSE);
     }
+
     public static function arrayEnumState(){
-        return array(self::STATE_CREATE, self::STATE_ARCHIVED, self::STATE_CANCELED, self::STATE_RUNNING,
+        return array(
+            self::STATE_CREATE,
+            self::STATE_ARCHIVED,
+            self::STATE_CANCELED,
+            self::STATE_RUNNING,
             self::STATE_FINISHED,
             self::STATE_OPEN,
             self::STATE_CLOSE,
-            );
+        );
     }
 }
