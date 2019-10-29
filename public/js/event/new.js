@@ -2,19 +2,10 @@ $("#modalAddLocation").on("submit", "form", function(e) {
     //Disable automatic form send
     e.preventDefault();
 
-    //Create the new location object
-    var newLocation = {
-        name: $("#location_name").val(),
-        street: $("#location_street").val(),
-        latitude: $("#location_latitude").val(),
-        longitude: $("#location_longitude").val(),
-        city: $("#location_city").val(),
-    };
-
     $.ajax({
         method: "POST",
         url: $("#submitFormLocation").attr("data-url"),
-        data: newLocation,
+        data: $("#formAddLocation").serialize(),
         beforeSend: function () {
             $("#loader").removeClass("d-none");
         },
@@ -28,6 +19,8 @@ $("#modalAddLocation").on("submit", "form", function(e) {
                     timer: 1500,
                 }).then((result) => {
                     $("#event_lieu").append(new Option(location[1], location[0]));
+                    $("#modalAddLocation").modal("hide");
+                    $("#event_lieu option[value=" + location[0] + "]").attr('selected','selected');
                 });
             } else {
                 Swal.fire({
@@ -43,8 +36,7 @@ $("#modalAddLocation").on("submit", "form", function(e) {
                 text: Translator.trans("app.trylater"),
             });
         },
-        complete: function () {
-            $("#modalAddLocation").modal("hide");
+        complete: function() {
             $("#loader").addClass("d-none");
         }
     });

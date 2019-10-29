@@ -72,7 +72,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{  form_start(formLocation) }}
+                    {{ form_start(formLocation, { "attr": { "id": "formAddLocation" }}) }}
                     {{ form_widget(formLocation) }}
                     <button id="submitFormLocation" type="submit" data-url="{{ path("location_add") }}">
                         {{ "event.new.location.confirm"|trans }}
@@ -85,5 +85,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ url('bazinga_jstranslation_js') }}"></script>
     <script src="{{ asset("js/event/new.js") }}"></script>
 {% endblock %}
