@@ -23,6 +23,7 @@ function remove(url, isAjax) {
 }
 
 function cancel(url, isAjax) {
+    console.log('verif');
     confirmAndRequest(url, isAjax, "cancel");
 }
 
