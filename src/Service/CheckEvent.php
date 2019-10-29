@@ -250,7 +250,8 @@ class CheckEvent
 
         foreach ($functions as $key => $value) {
             if (call_user_func_array(array(__NAMESPACE__ . "\CheckEvent", $value[0]), array($user, $event))) {
-                $actions[$key] = array("link" => $value[1], "ajax" => $value[2], "name" => $this->translator->trans(str_replace("_", ".", $key)));
+                $actions[$key] = array("name" => $this->translator->trans(str_replace("_", ".", $key)),
+                    "link" => $value[1], "ajax" => $value[2]);
             }
         }
 

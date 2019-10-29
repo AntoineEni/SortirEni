@@ -110,14 +110,21 @@
                         </thead>
                         {% for subscription in event.subscriptions %}
                             <tr>
-                                <td><a href="{{ path('user_by_pseudo',{'pseudo': subscription.participant.username}) }}">{{ subscription.participant.username }}</a></td>
+                                <td>
+                                    <a href="{{ path('user_by_pseudo',{'pseudo': subscription.participant.username}) }}">
+                                        {{ subscription.participant.username }}
+                                    </a>
+                                </td>
                                 <td>{{subscription.participant.name}} {{subscription.participant.firstName}}</td>
                             </tr>
                         {% endfor %}
                     </table>
 
                     {% for action, detail in actions %}
-                        <button class="btn text-light bgBleu" id="{{ action }}" data-url="{{ detail.link }}" data-ajax="{{ detail.ajax }}">{{ detail.name }}</button>
+                        <button class="btn text-light bgBleu" id="{{ action }}" data-url="{{ detail.link }}"
+                                data-ajax="{{ detail.ajax }}">
+                            {{ detail.name }}
+                        </button>
                     {% endfor %}
                 </div>
             </div>
