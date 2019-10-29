@@ -62,7 +62,7 @@
                 <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
                 <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
                 <td>{{ "home.table.value.state"|transchoice(value['state']) }}</td>
-                <td>{{ (value["Participation"] == "1" ? "X" : "") }}</td>
+                <td class="text-center">{{ (value["Participation"] == "1" ? 'X' : "") }}</td>
                 <td><a href="{{ path('user_by_pseudo',{'pseudo':  value['username']}) }}">{{ value['username']}}</a></td>
                 <td>
                     {% for action, detail in value['actions'] %}

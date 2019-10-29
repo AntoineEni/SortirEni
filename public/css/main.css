@@ -79,3 +79,10 @@ footer {
 .bgBleu{
     background-color: #3182B5;
 }
+#msgErreurs{
+    text-align: center;
+    vertical-align: middle;
+}
+alert {
+    padding: 5px;
+}

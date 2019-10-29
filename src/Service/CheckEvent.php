@@ -111,7 +111,7 @@ class CheckEvent
                 throw new NotFoundHttpException("Not found event");
             } else if ($event->getOrganisator() !== $user) {
                 throw new AccessDeniedException("Not allowed to edit this event");
-            } else if ($event->getState() !== StateEnum::STATE_CREATE) {
+            } else if ($event->getState() != StateEnum::STATE_CREATE) {
                 throw new BadRequestHttpException("Not allowed to edit a not create event");
             }
         } catch (Exception $e) {

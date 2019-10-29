@@ -42,15 +42,18 @@ class EventController extends AbstractController
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
 
-        if ($formEvent->isSubmitted() && $formEvent->isValid())
-        {
-            $event->setOrganisator($this->getUser());
-            $event->setSite($this->getUser()->getSite());
-
-            $em->persist($event);
-            $em->flush();
-            return $this->redirectToRoute("event_detail", array("id" => $event->getId()));
-        }
+        if ($formEvent->isSubmitted() && $formEvent->isValid()) {
+            try {
+                $event->setOrganisator($this->getUser());
+                $event->setSite($this->getUser()->getSite());
+                $em->persist($event);
+                $em->flush();
+                $this->addFlash("success", "Event create with success");
+                return $this->redirectToRoute("event_detail", array("id" => $event->getId()));
+            }catch (\Exception $e){
+                $this->addFlash("danger", $e->getMessage());
+            }
+         }
 
         $formLocation = $this->createForm(LocationType::class, new Location());
 
@@ -114,7 +117,7 @@ class EventController extends AbstractController
                 $this->addFlash("success", "Event edit with success");
                 return $this->redirectToRoute("event_detail", array("id" => $id));
             } catch (\Exception $e) {
-                $this->addFlash("danger", $e->getMessage());
+                $this->addFlash("danger", "Error");
             }
         }
 

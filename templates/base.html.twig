@@ -11,6 +11,15 @@
     </head>
     <body>
         {% include 'inc/_header.html.twig' %}
+        <div id="msgErreurs">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        <p class="m-0">{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
         <div class="container page">
             {% block body %}{% endblock %}
         </div>
