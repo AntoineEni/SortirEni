@@ -22,11 +22,6 @@ function remove(url, isAjax) {
     confirmAndRequest(url, isAjax, "remove");
 }
 
-function cancel(url, isAjax) {
-    console.log('verif');
-    confirmAndRequest(url, isAjax, "cancel");
-}
-
 function confirmAndRequest(url, isAjax, type) {
     $("#loader").removeClass("d-none");
     Swal.fire({

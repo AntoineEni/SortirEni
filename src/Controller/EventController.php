@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\State;
+use App\Form\CancelEventType;
 use App\Form\EventType;
 use App\Form\LocationType;
 use App\Service\CheckEvent;
@@ -13,6 +14,7 @@ use Exception;
 use App\Entity\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -186,29 +188,42 @@ class EventController extends AbstractController
     /**
      * @Route("/event/{id}/cancel", name="event_cancel", requirements={"id"="\d+"})
      * @param $id
+     * @param Request $request
      * @param EntityManagerInterface $em
-     * @return JsonResponse
+     * @return RedirectResponse|Response
      */
-    public function cancelEvent($id, EntityManagerInterface $em)
+    public function cancelEvent($id, Request $request,  EntityManagerInterface $em)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $response = array("ok" => true, "response" => "Annulation réussie !");
-
-        $event = $em->getRepository(Event::class)->find($id);
+        $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
 
         try {
-            $this->checkEvent->canCancelThisEvent($this->getUser(), $event);
-
-            $event->setState(StateEnum::STATE_CANCELED);
-
-            $em->persist($event);
-            $em->flush();
+            $this->checkEvent->canCancelThisEvent($this->getUser(), $event, true);
         } catch (Exception $e) {
-            $response["ok"] = false;
-            $response["response"] = $e->getMessage();
+            $this->addFlash("danger", $e->getMessage());
+            return $this->redirectToRoute("event_detail", array("id" => $id));
         }
 
-        return new JsonResponse($response);
+        $eventForm = $this->createForm(CancelEventType::class, $event);
+        $eventForm->handleRequest($request);
+
+        if ($eventForm->isSubmitted() && $eventForm->isValid()) {
+            try {
+                $event->setState(StateEnum::STATE_CANCELED);
+
+                $em->persist($event);
+                $em->flush();
+                $this->addFlash("success", "Event edit with success");
+                return $this->redirectToRoute("event_detail", array("id" => $id));
+            } catch (\Exception $e) {
+                $this->addFlash("danger", $e->getMessage());
+            }
+        }
+
+        return $this->render("event/cancel.html.twig", array(
+            "formEvent" => $eventForm->createView(),
+            "event" => $event,
+        ));
     }
 }

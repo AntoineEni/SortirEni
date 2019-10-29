@@ -91,6 +91,11 @@ class Event
      */
     private $subscriptions;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $motif;
+
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
@@ -261,6 +266,18 @@ class Event
                 $subscription->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMotif(): ?string
+    {
+        return $this->motif;
+    }
+
+    public function setMotif(?string $motif): self
+    {
+        $this->motif = $motif;
 
         return $this;
     }

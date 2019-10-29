@@ -245,7 +245,7 @@ class CheckEvent
                 array(
                     "canCancelThisEvent",
                     $this->router->generate("event_cancel", array("id" => $event->getId())),
-                    "true"
+                    "false"
                 ));
 
         foreach ($functions as $key => $value) {

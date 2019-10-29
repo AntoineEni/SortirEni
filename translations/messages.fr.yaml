@@ -84,6 +84,14 @@ event:
     location:
       title: "Ajout d'un lieu"
       confirm: "Valider"
+  cancel:
+    title: "Annulation de la sortie"
+    name: "Nom de la sortie"
+    date: "Date de la sortie"
+    city: "Ville organisatrice"
+    location: "Lieu"
+    confirm: "Annuler"
+    return: "Retour"
 
 action:
   subscribe: "S'inscrire"

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "event.cancel.title"|trans }} {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        <div class="">
+            <h1>{{ "event.cancel.title"|trans }}</h1>
+        </div>
+        <div class="bg-detail  text-left">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">{{ "event.cancel.name"|trans }}</span>
+                </div>
+                <div class="col-md-7 offset-1">
+                    {{ event.name }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">{{ "event.cancel.date"|trans }}</span>
+                </div>
+                <div class="col-md-7 offset-1">
+                    {{ event.dateDebut|date('d/m/Y h:i:s') }}
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">{{ "event.cancel.city"|trans }}</span>
+                </div>
+                <div class="col-md-7 offset-1">
+                    {{ event.lieu.city.name }}
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">{{ "event.cancel.location"|trans }}</span>
+                </div>
+                <div class="col-md-7 offset-1">
+                    {{ event.lieu.street }}
+                </div>
+            </div>
+            {{ form_start(formEvent) }}
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <span class="font-weight-bold">{{ form_label(formEvent.motif) }}</span>
+                </div>
+                <div class="col-md-7 offset-1">
+                    {{ form_widget(formEvent.motif) }}
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-3 offset-4">
+                    <a href="{{ path("event_detail", {"id": event.id}) }}" class="btn btn-primary">{{ "event.cancel.return"|trans }}</a>
+                </div>
+                <div class="col-md-3">
+                    <input class="btn btn-danger" type="submit" value="{{ "event.cancel.confirm"|trans }}"/>
+                </div>
+            </div>
+            {{ form_end(formEvent) }}
+        </div>
+    </div>
+{% endblock %}
