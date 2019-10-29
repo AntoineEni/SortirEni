@@ -31,8 +31,9 @@ $(document).ready(function() {
         function (settings, data, dataIndex) {
             var Ninscrit = $('#event_filtre_nInscrit').is(':checked');
             var inscrit = data[5];
+            var organisateur = data[6];
             if (!Ninscrit) { return true; }
-            if (inscrit != 'X' && Ninscrit) { return true; }
+            else if (inscrit !== 'X' && organisateur !== $('#event_filtre_organisateur').attr('value')) { return true; }
 
             return false;
         },
@@ -73,10 +74,25 @@ $(document).ready(function() {
         ],
     } );
 
+    //Disable some check if some conditions verified
+    $("#event_filtre_inscrit").change(function() {
+        $("#event_filtre_nInscrit").prop("checked", false);
+        $("#event_filtre_organisateur").prop("checked", false);
+    });
+
+    $("#event_filtre_nInscrit").change(function() {
+        $("#event_filtre_inscrit").prop("checked", false);
+        $("#event_filtre_organisateur").prop("checked", false);
+    });
+
+    $("#event_filtre_organisateur").change(function() {
+        $("#event_filtre_inscrit").prop("checked", false);
+        $("#event_filtre_nInscrit").prop("checked", false);
+    });
+
     // Event listener to the two range filtering inputs to redraw on input
     $('#event_filtre_dateMin, #event_filtre_dateMax, #event_filtre_organisateur,#event_filtre_inscrit,#event_filtre_nInscrit,#event_filtre_finie,#event_filtre_site').change(function () {
         table.draw();
     });
 
-} );
-
+});

@@ -81,6 +81,9 @@ event:
     title: "Créer une sortie"
     confirm: "Créer"
     return: "Retour"
+    location:
+      title: "Ajout d'un lieu"
+      confirm: "Valider"
 
 action:
   subscribe: "S'inscrire"
