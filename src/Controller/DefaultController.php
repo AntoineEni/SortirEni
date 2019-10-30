@@ -4,7 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Event;
-use App\Form\EventFiltreType;
+use App\Form\EventFilterType;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use App\Service\CheckEvent;
@@ -37,7 +37,7 @@ class DefaultController extends AbstractController
         //Get events with few more information
         $events = $this->getDoctrine()->getRepository(Event::class)->eventWhitNumberSubscription($this->getUser());
 
-        $formEventFilter = $this->createForm(EventFiltreType::class, new Event());
+        $formEventFilter = $this->createForm(EventFilterType::class, new Event());
 
         //Foreach event, get the list of available actions
         foreach ($events as $key => $value) {

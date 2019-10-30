@@ -11,7 +11,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class EventFiltreType extends AbstractType
+/**
+ * Form use to filter events on the home page
+ * Class EventFilterType
+ * @package App\Form
+ */
+class EventFilterType extends AbstractType
 {
     private $translator;
 
@@ -28,37 +33,51 @@ class EventFiltreType extends AbstractType
                 'label' => 'Site',
                 'choice_label' => 'name',
                 'placeholder' => $this->translator->trans("form.eventfilter.site"),
-                'attr'=>['id'=>'site','class'=>'form-control'],
-                'label_attr'=>['class'=>'input-group-text']
+                'attr' => array(
+                    'id' => 'site',
+                    'class' => 'form-control',
+                ),
+                'label_attr' => array(
+                    'class' => 'input-group-text',
+                )
             ))
-            ->add('dateMin',TextType::class,array(
-                'attr'=>['id'=>'min','class'=>'form-control js-datepicker'],
+            ->add('dateMin',TextType::class, array(
                 'mapped' => false,
-                'label' => ' ',
-                'label_attr'=>['class'=>'input-group-text fas fa-calendar-alt']
+                'label' => '',
+                'attr' => array(
+                    'id' => 'min',
+                    'class' => 'form-control js-datepicker'
+                ),
+                'label_attr' => array(
+                    'class' => 'input-group-text fas fa-calendar-alt',
+                )
             ))
-            ->add('dateMax',TextType::class,array(
-                'attr'=>['id'=>'max','class'=>'form-control js-datepicker'],
+            ->add('dateMax',TextType::class, array(
                 'mapped' => false,
                 'label' => 'Date',
-                'label_attr'=>['class'=>'input-group-text']
+                'attr' => array(
+                    'id' => 'max',
+                    'class' => 'form-control js-datepicker'),
+                'label_attr' => array('
+                    class' => 'input-group-text',
+                )
             ))
-            ->add('organisateur',CheckboxType::class,array(
+            ->add('organisateur',CheckboxType::class, array(
                 'mapped' => false,
                 'required' => false,
                 'label' => $this->translator->trans("form.eventfilter.organisator"),
             ))
-            ->add('inscrit',CheckboxType::class,array(
+            ->add('inscrit',CheckboxType::class, array(
                 'mapped' => false,
                 'required' => false,
                 'label' => $this->translator->trans("form.eventfilter.inscrit"),
             ))
-            ->add('nInscrit',CheckboxType::class,array(
+            ->add('nInscrit',CheckboxType::class, array(
                 'mapped' => false,
                 'required' => false,
                 'label' => $this->translator->trans("form.eventfilter.nInscrit"),
             ))
-            ->add('finie',CheckboxType::class,array(
+            ->add('finie',CheckboxType::class, array(
                 'mapped' => false,
                 'required' => false,
                 'label' => $this->translator->trans("form.eventfilter.fini"),
@@ -68,8 +87,8 @@ class EventFiltreType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'data_class' => Event::class,
-        ]);
+        ));
     }
 }

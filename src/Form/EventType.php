@@ -17,6 +17,11 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
 
+/**
+ * Form use to manage Event
+ * Class EventType
+ * @package App\Form
+ */
 class EventType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -24,35 +29,35 @@ class EventType extends AbstractType
         $builder
             ->add('name', TextType::class, array(
                 "label" => "Titre de l'evenement",
-                'attr' => ['class' => 'form-control'],
-                'label_attr'=>['class'=>'']
+                'attr' => array(
+                    'class' => 'form-control',
+                ),
             ))
             ->add('dateDebut', DateType::class, array(
                 "label" => "Date de début",
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'dd/MM/yyyy',
-                'attr' => ['class' => 'js-datepicker form-control'],
-                'label_attr'=>['class'=>'']
+                'attr' => array(
+                    'class' => 'js-datepicker form-control',
+                )
             ))
             ->add('heureDebut', TimeType::class, array(
                 "label" => "as",
                 "mapped" => false,
                 "minutes" => range(00, 50, 10),
-                'label_attr'=>['class'=>''],
-
             ))
             ->add('duration', IntegerType::class, array(
                 "label" => "Durée (en minutes)",
-                'label_attr'=>['class'=>''],
             ))
             ->add('dateCloture', DateType::class, array(
                 "label" => "Date de fin d'inscription",
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'dd/MM/yyyy',
-                'attr' => ['class' => 'js-datepicker'],
-                'label_attr'=>['class'=>'']
+                'attr' => array(
+                    'class' => 'js-datepicker',
+                ),
             ))
             ->add('heureCloture', TimeType::class, array(
                 "label" => "Heure de fin d'inscription",
@@ -61,21 +66,21 @@ class EventType extends AbstractType
             ))
             ->add('inscriptionsMax', IntegerType::class, array(
                 "label" => "Nombre maximum d'inscrits",
-                'label_attr'=>['class'=>''],
             ))
             ->add('description', TextareaType::class, array(
                 "label" => "Description",
                 "required" => false,
-                'label_attr'=>['class'=>''],
             ))
             ->add('lieu', EntityType::class, array(
                 "label" => "Lieu de l'événement",
                 'class' => 'App\Entity\Location',
                 'choice_label' => 'name',
-                'label_attr'=>['class'=>''],
                 'placeholder' => 'Sélectionnez un lieu'
             ))->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+                //Add time to event dates when submit the form
                 $eventToEdit = $event->getData();
+
+                //Get the times values (array_map is use to convert the null yo 0)
                 $eventHeureDebut = array_map("intval", $event->getForm()->get("heureDebut")->getViewData());
                 $eventHeureCloture = array_map("intval", $event->getForm()->get("heureCloture")->getViewData());
 
@@ -90,8 +95,8 @@ class EventType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'data_class' => Event::class,
-        ]);
+        ));
     }
 }
