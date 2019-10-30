@@ -30,9 +30,9 @@ class EventFilterType extends AbstractType
         $builder
             ->add('site', EntityType::class, array(
                 'class' => 'App\Entity\Site',
-                'label' => 'Site',
+                'label' => $this->translator->trans("form.eventfilter.site.label"),
                 'choice_label' => 'name',
-                'placeholder' => $this->translator->trans("form.eventfilter.site"),
+                'placeholder' => $this->translator->trans("form.eventfilter.site.placeholder"),
                 'attr' => array(
                     'id' => 'site',
                     'class' => 'form-control',
@@ -54,10 +54,11 @@ class EventFilterType extends AbstractType
             ))
             ->add('dateMax',TextType::class, array(
                 'mapped' => false,
-                'label' => 'Date',
+                'label' => $this->translator->trans("form.eventfilter.datemax"),
                 'attr' => array(
                     'id' => 'max',
-                    'class' => 'form-control js-datepicker'),
+                    'class' => 'form-control js-datepicker'
+                ),
                 'label_attr' => array('
                     class' => 'input-group-text',
                 )

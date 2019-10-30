@@ -54,15 +54,15 @@ class CheckEvent
     public function canSubscribeToThisEvent(User $user, Event $event, $throwException = false) {
         try {
             if ($event == null) {
-                throw new NotFoundHttpException("Not found event");
+                throw new NotFoundHttpException($this->translator->trans("event.notfound"));
             } else if ($event->getOrganisator() === $user) {
-                throw new BadRequestHttpException("Cannot subscribe to your own event");
+                throw new BadRequestHttpException($this->translator->trans("subscription.add.error.organisator"));
             } else if ($event->getDateCloture() < new \DateTime()) {
-                throw new BadRequestHttpException("Closure date has been reach, you can't subscribe no more");
+                throw new BadRequestHttpException($this->translator->trans("subscription.add.error.datecloture"));
             } else if ($event->getState() != StateEnum::STATE_OPEN) {
-                throw new BadRequestHttpException("Cannot subscribe to not open event");
+                throw new BadRequestHttpException($this->translator->trans("subscription.add.error.state"));
             } else if ($this->subscriptionRepository->findOneBy(array("participant" => $user, "event" => $event))) {
-                throw new InvalidArgumentException("You've already subscribe to this event");
+                throw new InvalidArgumentException($this->translator->trans("subscription.add.error.already"));
             }
         } catch (Exception $e) {
             if ($throwException) {
@@ -86,13 +86,13 @@ class CheckEvent
     public function canUnsubscribeToThisEvent(User $user, Event $event, $throwException = false) {
         try {
             if ($event == null) {
-                throw new NotFoundHttpException("Not found event");
+                throw new NotFoundHttpException($this->translator->trans("event.notfound"));
             } else if ($event->getOrganisator() === $user) {
-                throw new BadRequestHttpException("Cannot unsubscribe to your own event");
+                throw new BadRequestHttpException($this->translator->trans("subscription.remove.error.organisator"));
             } else if ($event->getState() > StateEnum::STATE_CLOSE) {
-                throw new BadRequestHttpException("Cannot unsubscribe to this event");
+                throw new BadRequestHttpException($this->translator->trans("subscription.remove.error.state"));
             } else if (!$this->subscriptionRepository->findOneBy(array("participant" => $user, "event" => $event))) {
-                throw new InvalidArgumentException("You've not already subscribe to this event");
+                throw new InvalidArgumentException($this->translator->trans("subscription.remove.error.already"));
             }
         } catch (Exception $e) {
             if ($throwException) {
@@ -116,11 +116,11 @@ class CheckEvent
     public function canEditThisEvent(User $user, Event $event, $throwException = false) {
         try {
             if ($event == null) {
-                throw new NotFoundHttpException("Not found event");
+                throw new NotFoundHttpException($this->translator->trans("event.notfound"));
             } else if ($event->getOrganisator() !== $user) {
-                throw new AccessDeniedException("Not allowed to edit this event");
+                throw new AccessDeniedException($this->translator->trans("event.edit.error.organisator"));
             } else if ($event->getState() != StateEnum::STATE_CREATE) {
-                throw new BadRequestHttpException("Not allowed to edit a not create event");
+                throw new BadRequestHttpException($this->translator->trans("event.edit.error.state"));
             }
         } catch (Exception $e) {
             if ($throwException) {
@@ -144,11 +144,11 @@ class CheckEvent
     public function canPublishThisEvent(User $user, Event $event, $throwException = false) {
         try {
             if ($event == null) {
-                throw new NotFoundHttpException("Not found event");
+                throw new NotFoundHttpException($this->translator->trans("event.notfound"));
             } else if ($event->getOrganisator() !== $user) {
-                throw new AccessDeniedException("Not allowed to publish this event");
+                throw new AccessDeniedException($this->translator->trans("event.publish.error.organisator"));
             } else if ($event->getState() != StateEnum::STATE_CREATE) {
-                throw new BadRequestHttpException("Not allowed to publish a not create event");
+                throw new BadRequestHttpException($this->translator->trans("event.publish.error.state"));
             }
         } catch (Exception $e) {
             if ($throwException) {
@@ -172,11 +172,11 @@ class CheckEvent
     public function canRemoveThisEvent(User $user, Event $event, $throwException = false) {
         try {
             if ($event == null) {
-                throw new NotFoundHttpException("Not found event");
+                throw new NotFoundHttpException($this->translator->trans("event.notfound"));
             } else if ($event->getOrganisator() !== $user) {
-                throw new AccessDeniedException("Not allowed to remove this event");
+                throw new AccessDeniedException($this->translator->trans("event.remove.error.organisator"));
             } else if ($event->getState() !== StateEnum::STATE_CREATE) {
-                throw new BadRequestHttpException("Not allowed to remove this event");
+                throw new BadRequestHttpException($this->translator->trans("event.remove.error.state"));
             }
         } catch (Exception $e) {
             if ($throwException) {
@@ -200,11 +200,11 @@ class CheckEvent
     public function canCancelThisEvent(User $user, Event $event, $throwException = false) {
         try {
             if ($event == null) {
-                throw new NotFoundHttpException("Not found event");
+                throw new NotFoundHttpException($this->translator->trans("event.notfound"));
             } else if ($event->getOrganisator() !== $user) {
-                throw new AccessDeniedException("Not allowed to cancel this event");
+                throw new AccessDeniedException($this->translator->trans("event.cancel.error.state"));
             } else if (!in_array($event->getState(), StateEnum::canCancel())) {
-                throw new BadRequestHttpException("Not allowed to cancel this event");
+                throw new BadRequestHttpException($this->translator->trans("event.cancel.error.state"));
             }
         } catch (Exception $e) {
             if ($throwException) {

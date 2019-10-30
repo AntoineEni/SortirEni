@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form use to manage
@@ -16,21 +17,28 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class UserPasswordType extends AbstractType
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('password',  RepeatedType::class, array(
                 'type' =>  PasswordType::class,
                 'empty_data' => '',
-                'invalid_message' => "Vous n'avez pas saisi le même mot de passe",
+                'invalid_message' => $this->translator->trans("form.password.error"),
                 'first_options' => array(
-                    'label' => 'Mot de passe',
+                    'label' => $this->translator->trans("form.password.first"),
                     'attr' => array(
                         'class' => 'form-control',
                     ),
                 ),
                 'second_options' => array(
-                    'label' => 'Confirmation du mot de passe',
+                    'label' => $this->translator->trans("form.password.second"),
                     'attr' => array(
                         'class'=>'form-control',
                     ),

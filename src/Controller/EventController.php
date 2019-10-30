@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Manage all event redirection and function ajax
@@ -29,11 +30,13 @@ class EventController extends AbstractController
 {
     private $checkEvent;
     private $mailerService;
+    private $translator;
 
-    public function __construct(CheckEvent $checkEvent, MailerService $mailerService)
+    public function __construct(CheckEvent $checkEvent, MailerService $mailerService, TranslatorInterface $translator)
     {
         $this->checkEvent = $checkEvent;
         $this->mailerService = $mailerService;
+        $this->translator = $translator;
     }
 
     /**
@@ -61,10 +64,10 @@ class EventController extends AbstractController
                 $em->persist($event);
                 $em->flush();
 
-                $this->addFlash("success", "Event create with success");
+                $this->addFlash("success", $this->translator->trans("event.new.success"));
                 return $this->redirectToRoute("event_detail", array("id" => $event->getId()));
             }catch (Exception $e){
-                $this->addFlash("danger", $e->getMessage());
+                $this->addFlash("danger", $this->translator->trans("app.baderror") . " : " . $this->translator->trans("app.trylater"));
             }
         }
 
@@ -89,7 +92,7 @@ class EventController extends AbstractController
         $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
 
         if ($event == null) {
-            throw $this->createNotFoundException("Not found event");
+            throw $this->createNotFoundException($this->translator->trans("event.notfound"));
         }
 
         return $this->render("event/detail.html.twig", array(
@@ -117,7 +120,7 @@ class EventController extends AbstractController
         try {
             $this->checkEvent->canEditThisEvent($this->getUser(), $event, true);
         } catch (Exception $e) {
-            $this->addFlash("danger", $e->getMessage());
+            $this->addFlash("danger", $this->translator->trans("app.baderror") . " : " . $this->translator->trans("app.trylater"));
             return $this->redirectToRoute("event_detail", array("id" => $id));
         }
 
@@ -131,10 +134,10 @@ class EventController extends AbstractController
 
                 $this->mailerService->sendAfterEdit($event);
 
-                $this->addFlash("success", "Event edit with success");
+                $this->addFlash("success", $this->translator->trans("event.edit.success"));
                 return $this->redirectToRoute("event_detail", array("id" => $id));
             } catch (Exception $e) {
-                $this->addFlash("danger", "Error");
+                $this->addFlash("danger", $this->translator->trans("app.baderror") . " : " . $this->translator->trans("app.trylater"));
             }
         }
 
@@ -155,7 +158,7 @@ class EventController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $response = array("ok" => true, "response" => "Publication réussie !");
+        $response = array("ok" => true, "response" => $this->translator->trans("event.publish.success"));
 
         $event = $em->getRepository(Event::class)->find($id);
 
@@ -188,7 +191,7 @@ class EventController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $response = array("ok" => true, "response" => "Suppression réussie !");
+        $response = array("ok" => true, "response" => $this->translator->trans("event.remove.success"));
 
         $event = $em->getRepository(Event::class)->find($id);
 
@@ -224,7 +227,7 @@ class EventController extends AbstractController
         try {
             $this->checkEvent->canCancelThisEvent($this->getUser(), $event, true);
         } catch (Exception $e) {
-            $this->addFlash("danger", $e->getMessage());
+            $this->addFlash("danger", $this->translator->trans("app.baderror") . " : " . $this->translator->trans("app.trylater"));
             return $this->redirectToRoute("event_detail", array("id" => $id));
         }
 
@@ -238,10 +241,10 @@ class EventController extends AbstractController
                 $em->persist($event);
                 $em->flush();
 
-                $this->addFlash("success", "Event edit with success");
+                $this->addFlash("success", $this->translator->trans("event.cancel.success"));
                 return $this->redirectToRoute("event_detail", array("id" => $id));
             } catch (Exception $e) {
-                $this->addFlash("danger", $e->getMessage());
+                $this->addFlash("danger", $this->translator->trans("app.baderror") . " : " . $this->translator->trans("app.trylater"));
             }
         }
 

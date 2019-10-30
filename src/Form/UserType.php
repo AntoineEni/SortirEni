@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form use to manage User
@@ -19,36 +20,43 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class UserType extends AbstractType
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('username', TextType::class, array(
-                'label' => 'Pseudo',
+                'label' => $this->translator->trans("form.user.username"),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('name', TextType::class, array(
-                'label' => 'Nom',
+                'label' => $this->translator->trans("form.user.name"),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('firstName', TextType::class, array(
-                'label' => 'Prenom',
+                'label' => $this->translator->trans("form.user.firstname"),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('phone',TelType::class, array(
-                'label' => 'Numéro de télephone',
+                'label' => $this->translator->trans("form.user.phone"),
                 'required' => false,
                 'attr' => array(
                     'class' => 'form-control'
                 ),
             ))
             ->add('mail',EmailType::class, array(
-                'label' => 'Adresse mail',
+                'label' => $this->translator->trans("form.user.mail"),
                 'attr' => array(
                     'class' => 'form-control'
                 ),

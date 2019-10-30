@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form use to manage Event
@@ -24,17 +25,24 @@ use Symfony\Component\Validator\Constraints\DateTime;
  */
 class EventType extends AbstractType
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', TextType::class, array(
-                "label" => "Titre de l'evenement",
+                "label" => $this->translator->trans("form.event.name"),
                 'attr' => array(
                     'class' => 'form-control',
                 ),
             ))
             ->add('dateDebut', DateType::class, array(
-                "label" => "Date de début",
+                "label" => $this->translator->trans("form.event.datedebut"),
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'dd/MM/yyyy',
@@ -43,15 +51,15 @@ class EventType extends AbstractType
                 )
             ))
             ->add('heureDebut', TimeType::class, array(
-                "label" => "as",
+                "label" => $this->translator->trans("form.event.heuredebut"),
                 "mapped" => false,
                 "minutes" => range(00, 50, 10),
             ))
             ->add('duration', IntegerType::class, array(
-                "label" => "Durée (en minutes)",
+                "label" => $this->translator->trans("form.event.duration"),
             ))
             ->add('dateCloture', DateType::class, array(
-                "label" => "Date de fin d'inscription",
+                "label" => $this->translator->trans("form.event.datecloture"),
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'dd/MM/yyyy',
@@ -60,22 +68,21 @@ class EventType extends AbstractType
                 ),
             ))
             ->add('heureCloture', TimeType::class, array(
-                "label" => "Heure de fin d'inscription",
                 "mapped" => false,
                 "minutes" => range(00, 50, 10),
             ))
             ->add('inscriptionsMax', IntegerType::class, array(
-                "label" => "Nombre maximum d'inscrits",
+                "label" => $this->translator->trans("form.event.inscriptionsmax"),
             ))
             ->add('description', TextareaType::class, array(
-                "label" => "Description",
+                "label" => $this->translator->trans("form.event.descrpition"),
                 "required" => false,
             ))
             ->add('lieu', EntityType::class, array(
-                "label" => "Lieu de l'événement",
+                "label" => $this->translator->trans("form.event.lieu.label"),
                 'class' => 'App\Entity\Location',
                 'choice_label' => 'name',
-                'placeholder' => 'Sélectionnez un lieu'
+                'placeholder' => $this->translator->trans("form.event.lieu.placeholder"),
             ))->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
                 //Add time to event dates when submit the form
                 $eventToEdit = $event->getData();

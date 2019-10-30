@@ -17,7 +17,7 @@ class SecurityController extends AbstractController
 {
     /**
      * Allows people to connect
-     * @Route("/login", name="security_login", methods={"GET"})
+     * @Route("/login", name="security_login", methods={"GET", "POST"})
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -44,8 +44,5 @@ class SecurityController extends AbstractController
      * @Route("/logout", name="security_logout", methods={"GET"})
      * @throws Exception
      */
-    public function logout()
-    {
-        throw new Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
-    }
+    public function logout() { }
 }

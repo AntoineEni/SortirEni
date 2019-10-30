@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Manage User
@@ -22,6 +23,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends AbstractController
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * Show the profile of current user
      * @Route("/user", name="user_profil", methods={"GET"})
@@ -64,7 +72,7 @@ class UserController extends AbstractController
                 $em->persist($user);
                 $em->flush();
 
-                $this->addFlash('success', "Votre profil a été modifié");
+                $this->addFlash('success', $this->translator->trans("user.update.success"));
                 return $this->redirectToRoute("user_profil");
             }
             catch (Exception $ex) {
@@ -80,13 +88,14 @@ class UserController extends AbstractController
                 $em->persist($user);
                 $em->flush();
 
-                $this->addFlash('success', "Votre Mot de passe a été modifié");
+                $this->addFlash('success', $this->translator->trans("user.update.success"));
                 return $this->redirectToRoute("user_profil");
             }
             catch (Exception $ex) {
                 $this->addFlash('danger', $ex->getMessage());
             }
         }
+
         return $this->render('user/update.html.twig', [
             "userForm" => $userForm->createView(),
             "userPasswordForm" => $userPasswordForm->createView(),

@@ -4,6 +4,14 @@ app:
   cancel: "Retour"
   baderror: "Une erreur grave est survenu"
   trylater: "Merci de réessayer ultérieurement"
+  badcsrf: "Token CSRF invalide"
+
+error:
+  title: "Erreur %status%"
+  404:
+    text: "Cette page n'existe pas, arrête de taper n'importe quoi dans l'URL"
+  500:
+    text: "Le serveur a abandonné"
 
 header:
   title: "Sortir.com"
@@ -20,6 +28,7 @@ login:
   password: "Mot de passe"
   rememberme: "Se souvenir de moi"
   confirm: "Connexion"
+  error: "La connexion a échoué"
 
 home:
   title: "Accueil"
@@ -77,6 +86,10 @@ event:
   edit:
     title: "Modification de la sortie"
     confirm: "Modifier"
+    success: "Modifications de l'événement réussies"
+    error:
+      organisator: "Vous n'êtes pas autorisé à modifier cet événement"
+      state: "L'événement ne permet plus les modifications"
   new:
     title: "Créer une sortie"
     confirm: "Créer"
@@ -84,6 +97,7 @@ event:
     location:
       title: "Ajout d'un lieu"
       confirm: "Valider"
+    success: "Evenement ajouté avec succès"
   cancel:
     title: "Annulation de la sortie"
     name: "Nom de la sortie"
@@ -92,6 +106,40 @@ event:
     location: "Lieu"
     confirm: "Annuler"
     return: "Retour"
+    success: "Annulation de l'événement réussie"
+    error:
+      organisator: "Vous ne pouvez pas annuler cet événement"
+      state: "L'événement ne peut pas être annulé"
+  publish:
+    success: "Publication de l'événement réussie"
+    error:
+      organisator: "Vous ne pouvez pas publié cet événement"
+      state: "Cet événement ne peut être publié à cause de son état"
+  remove:
+    success: "Suppression de l'événement réussie"
+    error:
+      organisator: "Vous ne pouvez pas supprimez cet événement"
+      state: "L'événement ne peut pas être supprimé"
+  notfound: "Evenement non trouvé"
+
+location:
+  add:
+    success: "Ajout de la location réussie"
+
+subscription:
+  add:
+    success: "Inscription réussie"
+    error:
+      organisator: "Vous ne pouvez pas vous inscrire à votre propre événement"
+      datecloture: "La date de fin d'inscriptions a été atteinte"
+      state: "L'événement n'est plus ouvert aux inscriptions"
+      already: "Vous êtes déjà inscrit à cet événement"
+  remove:
+    success: "Désinscription réussie"
+    error:
+      organisator: "Vous ne pouvez vous désincrire de votre propre événement"
+      state: "L'événement n'autorise plus les désinscriptions"
+      already: "Vous n'êtes pas inscrit à cet événement"
 
 action:
   subscribe: "S'inscrire"
@@ -105,6 +153,7 @@ user:
   update:
     title: "Modification du profil"
     confirm: "Modifier"
+    success: "Modification du profil réussie"
   profile:
     title: "Mon profil"
     name: "Nom :"
@@ -115,11 +164,43 @@ user:
 
 form:
   eventfilter:
-    site: "Sélectionnez un site"
+    site:
+      label: "Site"
+      placeholder: "Sélectionnez un site"
     organisator: "Sorties dont je suis l'oganisateur.rice"
     inscrit: "Sorties auxquelles je suis inscrit.e"
     nInscrit: "Sorties auxquelles je ne suis pas inscrit.e"
     fini: "Sorties passées"
+    datemax: "Date"
+  cancelevent:
+    motif: "Motif"
+  event:
+    name: "Titre de l'événement"
+    datedebut: "Date de début"
+    heuredebut: "as"
+    duration: "Durée (en minutes)"
+    datecloture: "Date de fin d'inscriptions"
+    inscriptionsmax: "Nombre maximum d'inscrits"
+    description: "Description"
+    lieu:
+      label: "Lieu de l'événement"
+      placeholder: "Sélectionnez un lieu"
+  location:
+    name: "Nom du lieu"
+    street: "Adresse"
+    latitude: "Latitude"
+    longitude: "Longitude"
+    city: "Ville"
+  password:
+    error: "Vous n'avez pas saisi le même mot de passe"
+    first: "Mot de passe"
+    second: "Confirmation du mot de passe"
+  user:
+    username: "Pseudo"
+    name: "Nom"
+    firstname: "Prénom"
+    phone: "Numéro de téléphone"
+    mail: "Adresse mail"
 
 mail:
   publish:
@@ -137,3 +218,12 @@ mail:
   recall:
     subject: "Rappel d'événement"
     title: "Rappel d'événement"
+
+entity:
+  event:
+    datedebut:
+      greater: "La valeur doit être supérieure à la date de clôture"
+    datecloture:
+      less: "La valeur doit être inférieure à la date de début"
+
+footer: "Contact:"

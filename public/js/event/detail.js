@@ -93,6 +93,7 @@ function launchRequest(url, isAjax) {
                     Swal.fire({
                         type: "error",
                         title: jsonResponse.response,
+                        text: Translator.trans("app.trylater"),
                     });
                 }
             },

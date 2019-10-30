@@ -6,12 +6,14 @@ use App\Entity\Event;
 use App\Entity\Subscription;
 use App\Service\CheckEvent;
 use App\Service\MailerService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Manage all Subscription
@@ -22,11 +24,13 @@ class SubscriptionController extends AbstractController
 {
     private $checkEvent;
     private $mailerService;
+    private $translator;
 
-    public function __construct(CheckEvent $checkEvent, MailerService $mailerService)
+    public function __construct(CheckEvent $checkEvent, MailerService $mailerService, TranslatorInterface $translator)
     {
         $this->checkEvent = $checkEvent;
         $this->mailerService = $mailerService;
+        $this->translator = $translator;
     }
 
     /**
@@ -40,7 +44,7 @@ class SubscriptionController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $response = array("ok" => true, "response" => "Inscription réussie !");
+        $response = array("ok" => true, "response" => $this->translator->trans("subscription.add.success"));
 
         $event = $em->getRepository(Event::class)->find($id);
 
@@ -49,7 +53,7 @@ class SubscriptionController extends AbstractController
             $this->checkEvent->canSubscribeToThisEvent($this->getUser(), $event, true);
 
             $subscription = new Subscription();
-            $subscription->setParticipant($this->getUser())->setEvent($event)->setDateInscription(new \DateTime());
+            $subscription->setParticipant($this->getUser())->setEvent($event)->setDateInscription(new DateTime());
 
             $em->persist($subscription);
             $em->flush();
@@ -76,7 +80,7 @@ class SubscriptionController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $response = array("ok" => true, "response" => "Désinscription réussie !");
+        $response = array("ok" => true, "response" => $this->translator->trans("subscription.remove.success"));
 
         $event = $em->getRepository(Event::class)->find($id);
 

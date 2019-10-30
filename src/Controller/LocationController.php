@@ -16,6 +16,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Manage Location
@@ -24,6 +25,13 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class LocationController extends AbstractController
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("/location/add", name="location_add", methods={"POST"})
      * @param Request $request
@@ -34,7 +42,7 @@ class LocationController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $response = array("ok" => true, "response" => "Ajout du lieu réussi !");
+        $response = array("ok" => true, "response" => $this->translator->trans("location.add.success"));
 
         try {
             $location = new Location();
@@ -47,7 +55,7 @@ class LocationController extends AbstractController
 
                 $response["location"] = array($location->getId(), $location->getName());
             } else {
-                throw new InvalidCsrfTokenException("Invalid CSRF Token");
+                throw new InvalidCsrfTokenException($this->translator->trans("app.badcsrf"));
             }
         } catch (Exception $e) {
             $response["ok"] = false;
