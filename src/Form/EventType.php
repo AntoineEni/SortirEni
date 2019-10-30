@@ -74,10 +74,10 @@ class EventType extends AbstractType
                 'choice_label' => 'name',
                 'label_attr'=>['class'=>''],
                 'placeholder' => 'Sélectionnez un lieu'
-            ))->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ))->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
                 $eventToEdit = $event->getData();
-                $eventHeureDebut = $event->getForm()->get("heureDebut")->getViewData();
-                $eventHeureCloture = $event->getForm()->get("heureCloture")->getViewData();
+                $eventHeureDebut = array_map("intval", $event->getForm()->get("heureDebut")->getViewData());
+                $eventHeureCloture = array_map("intval", $event->getForm()->get("heureCloture")->getViewData());
 
                 $eventToEdit->getDateDebut()->modify("+" . $eventHeureDebut["hour"] . " hours +"
                     . $eventHeureDebut["minute"] . " minutes");
