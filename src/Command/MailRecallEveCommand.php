@@ -12,6 +12,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Command used to send recall mail at event eve
+ * Class MailRecallEveCommand
+ * @package App\Command
+ */
 class MailRecallEveCommand extends Command
 {
     protected static $defaultName = 'app:send-mail-recall-eve';
@@ -35,11 +40,10 @@ class MailRecallEveCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $tomorrow  = new DateTime("tomorrow");
-
         $io = new SymfonyStyle($input, $output);
 
         try {
+            //Get events which occur the next day
             $allEvent = $this->em->createQueryBuilder()
                 ->select("e")
                 ->from("App\\Entity\\Event", "e")
@@ -55,6 +59,7 @@ class MailRecallEveCommand extends Command
 
             $io->progressStart(count($allEvent));
 
+            //For all event send mail to their subscriber
             foreach ($allEvent as $event) {
                 $this->mailerService->sendRecallEve($event);
                 $io->progressAdvance();

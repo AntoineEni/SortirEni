@@ -14,9 +14,15 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Command used to update the events status
+ * Class UpdateEventStatusCommand
+ * @package App\Command
+ */
 class UpdateEventStatusCommand extends Command
 {
     protected static $defaultName = 'app:update-event-status';
+
     private $em;
 
     public function __construct(EntityManagerInterface $em, string $name = null)
@@ -98,5 +104,7 @@ class UpdateEventStatusCommand extends Command
         } finally {
             $io->text("End of the command");
         }
+
+        return 0;
     }
 }
