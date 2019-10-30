@@ -26,3 +26,8 @@
 ###> translations JS ###
 /web
 ###< translations JS ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
