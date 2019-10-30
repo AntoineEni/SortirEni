@@ -6,55 +6,67 @@ $(document).ready(function() {
             var max = $('#event_filter_dateMax').datepicker("getDate");
             var date = data[1].split('/');
             var startDate = new Date(Date.UTC(date[2], date[1]-1, date[0], 0, 0, 0))
+            var res =false;
+            if ((min == null && max == null)
+                || (min == null && startDate <= max)
+                || (max == null && startDate >= min)
+                || (startDate <= max && startDate >= min)
+            ) {
+                res = true;
+            }
 
-            if (min == null && max == null) { return true; }
-            if (min == null && startDate <= max) { return true; }
-            if (max == null && startDate >= min) { return true; }
-            if (startDate <= max && startDate >= min) { return true; }
-            return false;
+            return res;
         },
         function (settings, data, dataIndex) {
             var organisateur = $('#event_filter_organisateur').is(':checked');
             var inscrit = data[6];
-            if (!organisateur) { return true; }
-            if (inscrit == $('#event_filter_organisateur').attr('value') && organisateur) { return true; }
+            var res = false;
+            if (!organisateur ) {
+                res = true;
+            }else if(inscrit == $('#event_filter_organisateur').attr('value')){
+                res =  true;
+            }
 
-            return false;
+            return res;
         },
         function (settings, data, dataIndex) {
             var inscritC = $('#event_filter_inscrit').is(':checked');
             var inscrit = data[5];
-            if (!inscritC) { return true; }
-            if (inscrit == 'X' && inscritC) { return true; }
+            var res = false;
+            if (!inscritC) { res = true; }
+            else if (inscrit == 'X') { res = true; }
 
-            return false;
+            return res;
         },
         function (settings, data, dataIndex) {
             var Ninscrit = $('#event_filter_nInscrit').is(':checked');
             var inscrit = data[5];
             var organisateur = data[6];
-            if (!Ninscrit) { return true; }
-            else if (inscrit !== 'X' && organisateur !== $('#event_filter_organisateur').attr('value')) { return true; }
+            var res = false;
+            if (!Ninscrit) { res = true; }
+            else if (inscrit !== 'X' && organisateur !== $('#event_filter_organisateur').attr('value')) { res = true; }
 
-            return false;
+            return res;
         },
         function (settings, data, dataIndex) {
             var datePasser = $('#event_filter_finie').is(':checked');
             var inscrit = new Date(data[2]);
             var date = new Date();
-            if (!datePasser) { return true; }
-            if (inscrit >= date && datePasser) { return true; }
+            var res = false;
+            if (!datePasser) { res = true; }
+            else if (inscrit >= date) { res = true; }
 
-            return false;
+            return res;
         },
         function (settings, data, dataIndex) {
             var filtreSiteVal = $('#event_filter_site option:selected').val();
             var filtreSiteLabel = $('#event_filter_site option:selected').text();
             var inscrit = data[8];
-            if (filtreSiteVal === null || typeof filtreSiteVal === "undefined" || filtreSiteVal === "") { return true; }
-            if (filtreSiteLabel != false && inscrit == filtreSiteLabel ) {  return true; }
+            var res = false;
+            if (filtreSiteVal === null || typeof filtreSiteVal === "undefined" || filtreSiteVal === "") { res = true; }
+            if (filtreSiteLabel != false && inscrit == filtreSiteLabel ) {  res = true; }
 
-            return false;
+            return res;
         },
     );
 

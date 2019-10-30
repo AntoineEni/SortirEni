@@ -29,7 +29,7 @@
 
         </div>
         <div class="col-md mt-3">
-            {{ form_widget(formEventFilter.organisateur, {'attr': {'event':  app.user.username }}) }}
+            {{ form_widget(formEventFilter.organisateur, {'attr': {'value':  app.user.username }}) }}
             {{ form_label(formEventFilter.organisateur) }}
             {{ form_label(formEventFilter.inscrit) }}
             {{ form_widget(formEventFilter.inscrit) }}
