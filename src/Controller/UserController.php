@@ -46,7 +46,6 @@ class UserController extends AbstractController
 
         $userPasswordForm = $this->createForm(UserPasswordType::class, $user);
         $userPasswordForm->handleRequest($request);
-        throw new BadRequestHttpException("");
         if (empty($user->getPassword())) {
             $user->setPassword($password);
         }
