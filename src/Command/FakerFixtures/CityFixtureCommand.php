@@ -48,8 +48,8 @@ class CityFixtureCommand extends Command
         for($i=0; $i<$num; $i++){
             $city = new City();
 
-            $city->setName($this->faker->name());
-            $city->setPostalCode($this->faker->text(255));
+            $city->setName($this->faker->city);
+            $city->setPostalCode($this->faker->postcode);
 
 
             $this->manager->persist($city);

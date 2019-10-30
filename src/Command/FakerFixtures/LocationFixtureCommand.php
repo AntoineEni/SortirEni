@@ -50,10 +50,10 @@ class LocationFixtureCommand extends Command
         for($i=0; $i<$num; $i++){
             $location = new Location();
 
-            $location->setName($this->faker->name());
-            $location->setStreet($this->faker->optional($chancesOfValue = 0.5)->text(255));
-            $location->setLatitude($this->faker->optional($chancesOfValue = 0.5)->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL));
-            $location->setLongitude($this->faker->optional($chancesOfValue = 0.5)->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL));
+            $location->setName($this->faker->company);
+            $location->setStreet($this->faker->optional($chancesOfValue = 0.5)->streetAddress(50));
+            $location->setLatitude($this->faker->optional($chancesOfValue = 0.5)->latitude);
+            $location->setLongitude($this->faker->optional($chancesOfValue = 0.5)->longitude);
 
             $location->setCity($this->faker->randomElement($allCityEntities));
 

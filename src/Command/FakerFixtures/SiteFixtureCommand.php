@@ -48,7 +48,7 @@ class SiteFixtureCommand extends Command
         for($i=0; $i<$num; $i++){
             $site = new Site();
 
-            $site->setName($this->faker->name());
+            $site->setName($this->faker->city);
 
 
             $this->manager->persist($site);

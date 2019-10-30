@@ -55,8 +55,8 @@ class UserFixtureCommand extends Command
         $user->setPassword($this->encrypt->encodePassword($user, 'admin'));
         $user->setName('admin');
         $user->setFirstName('admin');
-        $user->setPhone($this->faker->optional($chancesOfValue = 0.5)->text(255));
-        $user->setMail($this->faker->unique()->text(255));
+        $user->setPhone($this->faker->optional($chancesOfValue = 0.5)->phoneNumber);
+        $user->setMail($this->faker->unique()->email);
         $user->setIsAdmin($this->faker->boolean($chanceOfGettingTrue = 50));
         $user->setIsActif($this->faker->optional($chancesOfValue = 0.5)->boolean($chanceOfGettingTrue = 50));
 
@@ -69,10 +69,10 @@ class UserFixtureCommand extends Command
 
             $user->setUsername($this->faker->unique()->username);
             $user->setPassword($this->encrypt->encodePassword($user, 'test'));
-            $user->setName($this->faker->name());
+            $user->setName($this->faker->lastName);
             $user->setFirstName($this->faker->firstName);
-            $user->setPhone($this->faker->optional($chancesOfValue = 0.5)->text(255));
-            $user->setMail($this->faker->unique()->text(255));
+            $user->setPhone($this->faker->optional($chancesOfValue = 0.5)->phoneNumber);
+            $user->setMail($this->faker->unique()->email);
             $user->setIsAdmin($this->faker->boolean($chanceOfGettingTrue = 50));
             $user->setIsActif($this->faker->optional($chancesOfValue = 0.5)->boolean($chanceOfGettingTrue = 50));
 
