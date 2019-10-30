@@ -120,3 +120,20 @@ form:
     inscrit: "Sorties auxquelles je suis inscrit.e"
     nInscrit: "Sorties auxquelles je ne suis pas inscrit.e"
     fini: "Sorties passées"
+
+mail:
+  publish:
+    subject: "Nouvel événement publié"
+    title: "Un nouvel événement sur Sortir.com"
+  edit:
+    subject: "Modification d'un événement"
+    title: "Un événement a été modifié"
+  subscription:
+    subject: "Nouvelle inscription"
+    title: "Un utilisateur s'est inscrit"
+  unsubscription:
+    subject: "Désincription"
+    title: "Un utilisateur s'est désinscrit"
+  recall:
+    subject: "Rappel d'événement"
+    title: "Rappel d'événement"
