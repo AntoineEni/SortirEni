@@ -6,8 +6,10 @@ use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use mysql_xdevapi\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -44,7 +46,7 @@ class UserController extends AbstractController
 
         $userPasswordForm = $this->createForm(UserPasswordType::class, $user);
         $userPasswordForm->handleRequest($request);
-
+        throw new BadRequestHttpException("");
         if (empty($user->getPassword())) {
             $user->setPassword($password);
         }

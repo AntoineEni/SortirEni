@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}error{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">ERREUR {{ status_code }} : {{ status_text }}</h1>
+    <div class="tenor-gif-embed" data-postid="8949118" data-share-method="host" data-width="100%" data-aspect-ratio="1.0714285714285714"><a href="https://tenor.com/view/homer-daydreaming-thinking-simpsons-gif-8949118">Homer Day Dreaming GIF</a></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#loader404').removeClass("d-none");
+        })
+    </script>
+{% endblock %}
