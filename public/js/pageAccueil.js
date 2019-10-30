@@ -2,8 +2,8 @@ $(document).ready(function() {
     //Manage the datatable filters
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
-            var min = $('#event_filtre_dateMin').datepicker("getDate");
-            var max = $('#event_filtre_dateMax').datepicker("getDate");
+            var min = $('#event_filter_dateMin').datepicker("getDate");
+            var max = $('#event_filter_dateMax').datepicker("getDate");
             var date = data[1].split('/');
             var startDate = new Date(Date.UTC(date[2], date[1]-1, date[0], 0, 0, 0))
 
@@ -14,15 +14,15 @@ $(document).ready(function() {
             return false;
         },
         function (settings, data, dataIndex) {
-            var organisateur = $('#event_filtre_organisateur').is(':checked');
+            var organisateur = $('#event_filter_organisateur').is(':checked');
             var inscrit = data[6];
             if (!organisateur) { return true; }
-            if (inscrit == $('#event_filtre_organisateur').attr('value') && organisateur) { return true; }
+            if (inscrit == $('#event_filter_organisateur').attr('value') && organisateur) { return true; }
 
             return false;
         },
         function (settings, data, dataIndex) {
-            var inscritC = $('#event_filtre_inscrit').is(':checked');
+            var inscritC = $('#event_filter_inscrit').is(':checked');
             var inscrit = data[5];
             if (!inscritC) { return true; }
             if (inscrit == 'X' && inscritC) { return true; }
@@ -30,16 +30,16 @@ $(document).ready(function() {
             return false;
         },
         function (settings, data, dataIndex) {
-            var Ninscrit = $('#event_filtre_nInscrit').is(':checked');
+            var Ninscrit = $('#event_filter_nInscrit').is(':checked');
             var inscrit = data[5];
             var organisateur = data[6];
             if (!Ninscrit) { return true; }
-            else if (inscrit !== 'X' && organisateur !== $('#event_filtre_organisateur').attr('value')) { return true; }
+            else if (inscrit !== 'X' && organisateur !== $('#event_filter_organisateur').attr('value')) { return true; }
 
             return false;
         },
         function (settings, data, dataIndex) {
-            var datePasser = $('#event_filtre_finie').is(':checked');
+            var datePasser = $('#event_filter_finie').is(':checked');
             var inscrit = new Date(data[2]);
             var date = new Date();
             if (!datePasser) { return true; }
@@ -48,8 +48,8 @@ $(document).ready(function() {
             return false;
         },
         function (settings, data, dataIndex) {
-            var filtreSiteVal = $('#event_filtre_site option:selected').val();
-            var filtreSiteLabel = $('#event_filtre_site option:selected').text();
+            var filtreSiteVal = $('#event_filter_site option:selected').val();
+            var filtreSiteLabel = $('#event_filter_site option:selected').text();
             var inscrit = data[8];
             if (filtreSiteVal === null || typeof filtreSiteVal === "undefined" || filtreSiteVal === "") { return true; }
             if (filtreSiteLabel != false && inscrit == filtreSiteLabel ) {  return true; }
@@ -77,23 +77,23 @@ $(document).ready(function() {
     } );
 
     //Disable some checkbox if some conditions verified
-    $("#event_filtre_inscrit").change(function() {
-        $("#event_filtre_nInscrit").prop("checked", false);
-        $("#event_filtre_organisateur").prop("checked", false);
+    $("#event_filter_inscrit").change(function() {
+        $("#event_filter_nInscrit").prop("checked", false);
+        $("#event_filter_organisateur").prop("checked", false);
     });
 
-    $("#event_filtre_nInscrit").change(function() {
-        $("#event_filtre_inscrit").prop("checked", false);
-        $("#event_filtre_organisateur").prop("checked", false);
+    $("#event_filter_nInscrit").change(function() {
+        $("#event_filter_inscrit").prop("checked", false);
+        $("#event_filter_organisateur").prop("checked", false);
     });
 
-    $("#event_filtre_organisateur").change(function() {
-        $("#event_filtre_inscrit").prop("checked", false);
-        $("#event_filtre_nInscrit").prop("checked", false);
+    $("#event_filter_organisateur").change(function() {
+        $("#event_filter_inscrit").prop("checked", false);
+        $("#event_filter_nInscrit").prop("checked", false);
     });
 
     // Event listener to the two range filtering inputs to redraw on input
-    $('#event_filtre_dateMin, #event_filtre_dateMax, #event_filtre_organisateur,#event_filtre_inscrit,#event_filtre_nInscrit,#event_filtre_finie,#event_filtre_site').change(function () {
+    $('#event_filter_dateMin, #event_filter_dateMax, #event_filter_organisateur,#event_filter_inscrit,#event_filter_nInscrit,#event_filter_finie,#event_filter_site').change(function () {
         table.draw();
     });
 

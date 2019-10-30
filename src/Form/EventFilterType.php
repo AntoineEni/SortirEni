@@ -43,7 +43,7 @@ class EventFilterType extends AbstractType
             ))
             ->add('dateMin',TextType::class, array(
                 'mapped' => false,
-                'label' => '',
+                'label' => ' ',
                 'attr' => array(
                     'id' => 'min',
                     'class' => 'form-control js-datepicker'
