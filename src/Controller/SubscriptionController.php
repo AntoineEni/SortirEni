@@ -7,11 +7,17 @@ use App\Entity\Subscription;
 use App\Service\CheckEvent;
 use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Manage all Subscription
+ * Class SubscriptionController
+ * @package App\Controller
+ */
 class SubscriptionController extends AbstractController
 {
     private $checkEvent;
@@ -24,6 +30,7 @@ class SubscriptionController extends AbstractController
     }
 
     /**
+     * Add a subscription
      * @Route("/subscription/add/{id}", name="subscription_add", requirements={"id"="\d+"})
      * @param $id
      * @param EntityManagerInterface $em
@@ -38,6 +45,7 @@ class SubscriptionController extends AbstractController
         $event = $em->getRepository(Event::class)->find($id);
 
         try {
+            //check if user can subscribe
             $this->checkEvent->canSubscribeToThisEvent($this->getUser(), $event, true);
 
             $subscription = new Subscription();
@@ -48,7 +56,7 @@ class SubscriptionController extends AbstractController
 
             $this->checkEvent->editStatusAfterSubscription($event);
             $this->mailerService->sendAfterSubscription($event, $subscription);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $response["ok"] = false;
             $response["response"] = $e->getMessage();
         }
@@ -57,6 +65,7 @@ class SubscriptionController extends AbstractController
     }
 
     /**
+     * Remove a subscription
      * @Route("/subscription/remove/{id}", name="subscription_remove", requirements={"id"="\d+"})
      * @param $id
      * @param Request $request
@@ -72,6 +81,7 @@ class SubscriptionController extends AbstractController
         $event = $em->getRepository(Event::class)->find($id);
 
         try {
+            //Check if user can unsubscribe
             $this->checkEvent->canUnsubscribeToThisEvent($this->getUser(), $event, true);
 
             $subscription = $em->getRepository(Subscription::class)->findOneBy(array("participant" => $this->getUser(), "event" => $event));
@@ -81,7 +91,7 @@ class SubscriptionController extends AbstractController
 
             $this->checkEvent->editStatusAfterSubscription($event);
             $this->mailerService->sendAfterSubscription($event, $subscription);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $response["ok"] = false;
             $response["response"] = $e->getMessage();
         }

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Event;
-use App\Entity\State;
 use App\Form\CancelEventType;
 use App\Form\EventType;
 use App\Form\LocationType;
@@ -21,6 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * Manage all event redirection and function ajax
+ * Class EventController
+ * @package App\Controller
+ */
 class EventController extends AbstractController
 {
     private $checkEvent;
@@ -33,7 +37,8 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/create", name="event_create")
+     * Add a new event
+     * @Route("/event/create", name="event_add")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
@@ -45,22 +50,23 @@ class EventController extends AbstractController
 
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
+        $formLocation = $this->createForm(LocationType::class, new Location());
         $formEvent->handleRequest($request);
 
         if ($formEvent->isSubmitted() && $formEvent->isValid()) {
             try {
                 $event->setOrganisator($this->getUser());
                 $event->setSite($this->getUser()->getSite());
+
                 $em->persist($event);
                 $em->flush();
+
                 $this->addFlash("success", "Event create with success");
                 return $this->redirectToRoute("event_detail", array("id" => $event->getId()));
-            }catch (\Exception $e){
+            }catch (Exception $e){
                 $this->addFlash("danger", $e->getMessage());
             }
-         }
-
-        $formLocation = $this->createForm(LocationType::class, new Location());
+        }
 
         return $this->render('event/new.html.twig', [
             'form' => $formEvent->createView(),
@@ -69,6 +75,7 @@ class EventController extends AbstractController
     }
 
     /**
+     * Show details of an event
      * @Route("/event/{id}", name="event_detail", requirements={"id"="\d+"})
      * @param $id
      * @param Request $request
@@ -92,6 +99,7 @@ class EventController extends AbstractController
     }
 
     /**
+     * Allow to edit an event
      * @Route("/event/{id}/edit", name="event_edit", requirements={"id"="\d+"})
      * @param $id
      * @param Request $request
@@ -105,6 +113,7 @@ class EventController extends AbstractController
 
         $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
 
+        //Check if user can edit this event
         try {
             $this->checkEvent->canEditThisEvent($this->getUser(), $event, true);
         } catch (Exception $e) {
@@ -124,7 +133,7 @@ class EventController extends AbstractController
 
                 $this->addFlash("success", "Event edit with success");
                 return $this->redirectToRoute("event_detail", array("id" => $id));
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->addFlash("danger", "Error");
             }
         }
@@ -136,6 +145,7 @@ class EventController extends AbstractController
     }
 
     /**
+     * Publish an event
      * @Route("/event/{id}/publish", name="event_publish", requirements={"id"="\d+"})
      * @param $id
      * @param EntityManagerInterface $em
@@ -150,6 +160,7 @@ class EventController extends AbstractController
         $event = $em->getRepository(Event::class)->find($id);
 
         try {
+            //check if user can publish this event
             $this->checkEvent->canPublishThisEvent($this->getUser(), $event);
 
             $event->setState(StateEnum::STATE_OPEN);
@@ -167,6 +178,7 @@ class EventController extends AbstractController
     }
 
     /**
+     * Remove an event
      * @Route("/event/{id}/remove", name="event_remove", requirements={"id"="\d+"})
      * @param $id
      * @param EntityManagerInterface $em
@@ -181,6 +193,7 @@ class EventController extends AbstractController
         $event = $em->getRepository(Event::class)->find($id);
 
         try {
+            //check if user can remove this event
             $this->checkEvent->canRemoveThisEvent($this->getUser(), $event);
 
             $em->remove($event);
@@ -194,6 +207,7 @@ class EventController extends AbstractController
     }
 
     /**
+     * Cancel an event
      * @Route("/event/{id}/cancel", name="event_cancel", requirements={"id"="\d+"})
      * @param $id
      * @param Request $request
@@ -206,6 +220,7 @@ class EventController extends AbstractController
 
         $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
 
+        //Check if user can cancel this event
         try {
             $this->checkEvent->canCancelThisEvent($this->getUser(), $event, true);
         } catch (Exception $e) {
@@ -222,9 +237,10 @@ class EventController extends AbstractController
 
                 $em->persist($event);
                 $em->flush();
+
                 $this->addFlash("success", "Event edit with success");
                 return $this->redirectToRoute("event_detail", array("id" => $id));
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->addFlash("danger", $e->getMessage());
             }
         }

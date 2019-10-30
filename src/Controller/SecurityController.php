@@ -8,15 +8,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Manage a part of the security, combine with the AppAuthenticator
+ * Class SecurityController
+ * @package App\Controller
+ */
 class SecurityController extends AbstractController
 {
     /**
+     * Allows people to connect
      * @Route("/login", name="security_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        //If already connect
          if ($this->getUser()) {
              return $this->redirectToRoute('default_index');
          }
@@ -33,6 +40,7 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * Logout path, fully manage with the AppAuthenticator
      * @Route("/logout", name="security_logout")
      * @throws Exception
      */

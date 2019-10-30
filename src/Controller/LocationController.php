@@ -17,16 +17,20 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
+/**
+ * Manage Location
+ * Class LocationController
+ * @package App\Controller
+ */
 class LocationController extends AbstractController
 {
     /**
      * @Route("/location/add", name="location_add")
      * @param Request $request
      * @param EntityManagerInterface $em
-     * @param CsrfTokenManagerInterface $csrfTokenManager
      * @return JsonResponse
      */
-    public function add(Request $request, EntityManagerInterface $em, CsrfTokenManagerInterface $csrfTokenManager)
+    public function add(Request $request, EntityManagerInterface $em)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 

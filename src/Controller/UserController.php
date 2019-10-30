@@ -6,38 +6,43 @@ use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
-use mysql_xdevapi\Exception;
+use Exception;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Manage User
+ * Class UserController
+ * @package App\Controller
+ */
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user/index", name="user")
+     * Show the profile of current user
+     * @Route("/user", name="user_profil")
      */
-    public function index()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+    public function profileUser() {
+        $user = $this->getUser();
+
+        return $this->render('user/user.html.twig',[
+            'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/user", name="user_profil")
-     */
-    public function profilUser(){
-        $user = $this->getUser();
-        return $this->render('user/user.html.twig',[
-            'user'=>$user,
-        ]);
-    }
-    /**
+     * Update current user
      * @Route("/user/update", name="user_modify")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param UserPasswordEncoderInterface $encoder
+     * @return RedirectResponse|Response
      */
-    public function updateUser(Request $request, EntityManagerInterface $em,UserPasswordEncoderInterface $encoder){
+    public function updateUser(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder) {
         $user = $this->getUser();
         $password = $user->getPassword();
 
@@ -46,34 +51,39 @@ class UserController extends AbstractController
 
         $userPasswordForm = $this->createForm(UserPasswordType::class, $user);
         $userPasswordForm->handleRequest($request);
+
         if (empty($user->getPassword())) {
             $user->setPassword($password);
         }
-
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
             try {
                 $encoded = $encoder->encodePassword($user, $user->getPassword());
                 $user->setPassword($encoded);
+
                 $em->persist($user);
                 $em->flush();
+
                 $this->addFlash('success', "Votre profil a été modifié");
                 return $this->redirectToRoute("user_profil");
             }
-            catch (\Exception $ex) {
+            catch (Exception $ex) {
                 $this->addFlash('danger', $ex->getMessage());
             }
         }
+
         if ($userPasswordForm->isSubmitted() && $userPasswordForm->isValid()) {
             try {
                 $encoded = $encoder->encodePassword($user, $user->getPassword());
                 $user->setPassword($encoded);
+
                 $em->persist($user);
                 $em->flush();
+
                 $this->addFlash('success', "Votre Mot de passe a été modifié");
                 return $this->redirectToRoute("user_profil");
             }
-            catch (\Exception $ex) {
+            catch (Exception $ex) {
                 $this->addFlash('danger', $ex->getMessage());
             }
         }
@@ -84,12 +94,16 @@ class UserController extends AbstractController
     }
 
     /**
+     * Show details of another user
      * @Route("/user/detail/{pseudo}", name="user_by_pseudo")
+     * @param $pseudo
+     * @return Response
      */
-    public function userByPseudo($pseudo){
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$pseudo]);
+    public function userByPseudo($pseudo) {
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $pseudo]);
+
         return $this->render('user/user.html.twig',[
-            'user'=>$user,
+            'user' => $user,
         ]);
     }
 }

@@ -11,6 +11,11 @@ use App\Service\CheckEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Use to manage the default pages
+ * Class DefaultController
+ * @package App\Controller
+ */
 class DefaultController extends AbstractController
 {
     private $checkEvent;
@@ -21,23 +26,28 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * Send to the home page
      * @Route("/", name="default_index")
+     * @throws \Exception
      */
     public function index()
     {
-        $sortie = $this->getDoctrine()->getRepository(Event::class)->eventWhitNumberSubcriptyion($this->getUser());
+        $this->denyAccessUnlessGranted("ROLE_USER");
 
-        $event = new Event();
-        $formEvent = $this->createForm(EventFiltreType::class, $event);
+        //Get events with few more information
+        $events = $this->getDoctrine()->getRepository(Event::class)->eventWhitNumberSubscription($this->getUser());
 
-        foreach ($sortie as $key => $value) {
+        $formEventFilter = $this->createForm(EventFiltreType::class, new Event());
+
+        //Foreach event, get the list of available actions
+        foreach ($events as $key => $value) {
             $eventAction = $this->getDoctrine()->getRepository(Event::class)->find($value['id']);
-            $sortie[$key]['actions'] = $this->checkEvent->getListAction($this->getUser(), $eventAction);
+            $events[$key]['actions'] = $this->checkEvent->getListAction($this->getUser(), $eventAction);
         }
 
         return $this->render('default/index.html.twig', [
-            'sortie' => $sortie,
-            'formEvent'=>$formEvent->createView(),
+            'events' => $events,
+            'formEventFilter' => $formEventFilter->createView(),
         ]);
     }
 }

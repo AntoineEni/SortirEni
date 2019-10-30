@@ -13,32 +13,32 @@
         </div>
     </div>
 
-    {{ form_start(formEvent) }}
+    {{ form_start(formEventFilter) }}
     <div class="row mb-5">
         <div class="col-md mt-3">
             <div class="input-group mb-3">
-                {{ form_label(formEvent.site) }}
-                {{ form_widget(formEvent.site) }}
+                {{ form_label(formEventFilter.site) }}
+                {{ form_widget(formEventFilter.site) }}
             </div>
             <div class="input-group">
-                {{ form_label(formEvent.dateMax) }}
-                {{ form_widget(formEvent.dateMin)  }}
-                {{ form_label(formEvent.dateMin) }}
-                {{ form_widget(formEvent.dateMax) }}
+                {{ form_label(formEventFilter.dateMax) }}
+                {{ form_widget(formEventFilter.dateMin)  }}
+                {{ form_label(formEventFilter.dateMin) }}
+                {{ form_widget(formEventFilter.dateMax) }}
             </div>
 
         </div>
         <div class="col-md mt-3">
-            {{ form_widget(formEvent.organisateur, {'attr': {'value':  app.user.username }}) }}
-            {{ form_label(formEvent.organisateur) }}
-            {{ form_label(formEvent.inscrit) }}
-            {{ form_widget(formEvent.inscrit) }}
-            {{ form_label(formEvent.nInscrit) }}
-            {{ form_widget(formEvent.nInscrit) }}
-            {{ form_widget(formEvent.finie) }}
+            {{ form_widget(formEventFilter.organisateur, {'attr': {'event':  app.user.username }}) }}
+            {{ form_label(formEventFilter.organisateur) }}
+            {{ form_label(formEventFilter.inscrit) }}
+            {{ form_widget(formEventFilter.inscrit) }}
+            {{ form_label(formEventFilter.nInscrit) }}
+            {{ form_widget(formEventFilter.nInscrit) }}
+            {{ form_widget(formEventFilter.finie) }}
         </div>
     </div>
-    {{ form_end(formEvent) }}
+    {{ form_end(formEventFilter) }}
 
     <table id="tableAccueil" class="table table-striped table-bordered display responsive nowrap" style="width:100%">
         <thead>
@@ -55,24 +55,24 @@
         </tr>
         </thead>
         <tbody>
-        {% for value in sortie %}
+        {% for event in events %}
             <tr>
-                <td><a href="{{ path("event_detail", {id: value["id"]}) }}">{{ value['name'] }}</a></td>
-                <td id="fini">{{ value['dateDebut'] | date('d/m/Y') }}</td>
-                <td id="ffin">{{ value['dateCloture'] | date('d/m/Y') }}</td>
-                <td>{{ value['nombreDeParticipant'] }}/{{ value['inscriptionsMax'] }}</td>
-                <td>{{ "home.table.value.state"|transchoice(value['state']) }}</td>
-                <td class="text-center">{{ (value["Participation"] == "1" ? 'X' : "") }}</td>
-                <td><a href="{{ path('user_by_pseudo',{'pseudo':  value['username']}) }}">{{ value['username']}}</a></td>
+                <td><a href="{{ path("event_detail", {id: event["id"]}) }}">{{ event['name'] }}</a></td>
+                <td id="fini">{{ event['dateDebut'] | date('d/m/Y') }}</td>
+                <td id="ffin">{{ event['dateCloture'] | date('d/m/Y') }}</td>
+                <td>{{ event['nombreDeParticipant'] }}/{{ event['inscriptionsMax'] }}</td>
+                <td>{{ "home.table.value.state"|transchoice(event['state']) }}</td>
+                <td class="text-center">{{ (event["Participation"] == "1" ? 'X' : "") }}</td>
+                <td><a href="{{ path('user_by_pseudo',{'pseudo':  event['username']}) }}">{{ event['username']}}</a></td>
                 <td>
-                    {% for action, detail in value['actions'] %}
-                        <button class="btn text-light bgBleu" id="{{ action }}_{{ value['id'] }}" data-url="{{ detail.link }}"
+                    {% for action, detail in event['actions'] %}
+                        <button class="btn text-light bgBleu" id="{{ action }}_{{ event['id'] }}" data-url="{{ detail.link }}"
                                 data-ajax="{{ detail.ajax }}">
                             {{ detail.name }}
                         </button>
                     {% endfor %}
                 </td>
-                <td>{{ value['site']}}</td>
+                <td>{{ event['site']}}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -80,7 +80,7 @@
     </table>
 
     <div>
-        <a href="{{ path("event_create") }}" class="btn btn-primary">{{ "home.createEvent"|trans }}</a>
+        <a href="{{ path("event_add") }}" class="btn btn-primary">{{ "home.createEvent"|trans }}</a>
     </div>
 {% endblock %}
 
