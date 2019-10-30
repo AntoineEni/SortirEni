@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    //Manage the datatable filters
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
             var min = $('#event_filtre_dateMin').datepicker("getDate");
@@ -57,6 +58,7 @@ $(document).ready(function() {
         },
     );
 
+    //Init the datatable
     var table = $('#tableAccueil').DataTable( {
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
@@ -74,7 +76,7 @@ $(document).ready(function() {
         ],
     } );
 
-    //Disable some check if some conditions verified
+    //Disable some checkbox if some conditions verified
     $("#event_filtre_inscrit").change(function() {
         $("#event_filtre_nInscrit").prop("checked", false);
         $("#event_filtre_organisateur").prop("checked", false);

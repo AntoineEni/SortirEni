@@ -1,3 +1,4 @@
+//Allow to fill the time picker for the two dates (start and closure)
 $(document).ready(function() {
     dateDebut = new Date(JSON.parse(dateDebut).date);
     dateCloture = new Date(JSON.parse(dateCloture).date);
