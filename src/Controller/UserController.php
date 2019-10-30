@@ -24,7 +24,7 @@ class UserController extends AbstractController
 {
     /**
      * Show the profile of current user
-     * @Route("/user", name="user_profil")
+     * @Route("/user", name="user_profil", methods={"GET"})
      */
     public function profileUser() {
         $user = $this->getUser();
@@ -36,7 +36,7 @@ class UserController extends AbstractController
 
     /**
      * Update current user
-     * @Route("/user/update", name="user_modify")
+     * @Route("/user/update", name="user_modify", methods={"GET"})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param UserPasswordEncoderInterface $encoder
@@ -95,7 +95,7 @@ class UserController extends AbstractController
 
     /**
      * Show details of another user
-     * @Route("/user/detail/{pseudo}", name="user_by_pseudo")
+     * @Route("/user/detail/{pseudo}", name="user_by_pseudo", methods={"GET"})
      * @param $pseudo
      * @return Response
      */

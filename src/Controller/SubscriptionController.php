@@ -31,7 +31,7 @@ class SubscriptionController extends AbstractController
 
     /**
      * Add a subscription
-     * @Route("/subscription/add/{id}", name="subscription_add", requirements={"id"="\d+"})
+     * @Route("/subscription/add/{id}", name="subscription_add", requirements={"id"="\d+"}, methods={"POST"})
      * @param $id
      * @param EntityManagerInterface $em
      * @return JsonResponse
@@ -66,7 +66,7 @@ class SubscriptionController extends AbstractController
 
     /**
      * Remove a subscription
-     * @Route("/subscription/remove/{id}", name="subscription_remove", requirements={"id"="\d+"})
+     * @Route("/subscription/remove/{id}", name="subscription_remove", requirements={"id"="\d+"}, methods={"GET"})
      * @param $id
      * @param Request $request
      * @param EntityManagerInterface $em

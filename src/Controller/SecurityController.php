@@ -17,7 +17,7 @@ class SecurityController extends AbstractController
 {
     /**
      * Allows people to connect
-     * @Route("/login", name="security_login")
+     * @Route("/login", name="security_login", methods={"GET"})
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -41,7 +41,7 @@ class SecurityController extends AbstractController
 
     /**
      * Logout path, fully manage with the AppAuthenticator
-     * @Route("/logout", name="security_logout")
+     * @Route("/logout", name="security_logout", methods={"GET"})
      * @throws Exception
      */
     public function logout()

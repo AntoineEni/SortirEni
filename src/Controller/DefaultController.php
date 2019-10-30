@@ -27,7 +27,7 @@ class DefaultController extends AbstractController
 
     /**
      * Send to the home page
-     * @Route("/", name="default_index")
+     * @Route("/", name="default_index", methods={"GET"})
      * @throws \Exception
      */
     public function index()

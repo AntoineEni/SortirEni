@@ -38,7 +38,7 @@ class EventController extends AbstractController
 
     /**
      * Add a new event
-     * @Route("/event/create", name="event_add")
+     * @Route("/event/create", name="event_add", methods={"GET"})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
@@ -76,7 +76,7 @@ class EventController extends AbstractController
 
     /**
      * Show details of an event
-     * @Route("/event/{id}", name="event_detail", requirements={"id"="\d+"})
+     * @Route("/event/{id}", name="event_detail", requirements={"id"="\d+"}, methods={"GET"})
      * @param $id
      * @param Request $request
      * @return Response
@@ -100,7 +100,7 @@ class EventController extends AbstractController
 
     /**
      * Allow to edit an event
-     * @Route("/event/{id}/edit", name="event_edit", requirements={"id"="\d+"})
+     * @Route("/event/{id}/edit", name="event_edit", requirements={"id"="\d+"}, methods={"GET"})
      * @param $id
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -146,7 +146,7 @@ class EventController extends AbstractController
 
     /**
      * Publish an event
-     * @Route("/event/{id}/publish", name="event_publish", requirements={"id"="\d+"})
+     * @Route("/event/{id}/publish", name="event_publish", requirements={"id"="\d+"}, methods={"POST"})
      * @param $id
      * @param EntityManagerInterface $em
      * @return JsonResponse
@@ -179,7 +179,7 @@ class EventController extends AbstractController
 
     /**
      * Remove an event
-     * @Route("/event/{id}/remove", name="event_remove", requirements={"id"="\d+"})
+     * @Route("/event/{id}/remove", name="event_remove", requirements={"id"="\d+"}, methods={"POST"})
      * @param $id
      * @param EntityManagerInterface $em
      * @return JsonResponse
@@ -208,7 +208,7 @@ class EventController extends AbstractController
 
     /**
      * Cancel an event
-     * @Route("/event/{id}/cancel", name="event_cancel", requirements={"id"="\d+"})
+     * @Route("/event/{id}/cancel", name="event_cancel", requirements={"id"="\d+"}, methods={"GET"})
      * @param $id
      * @param Request $request
      * @param EntityManagerInterface $em

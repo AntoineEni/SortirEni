@@ -25,7 +25,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class LocationController extends AbstractController
 {
     /**
-     * @Route("/location/add", name="location_add")
+     * @Route("/location/add", name="location_add", methods={"POST"})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return JsonResponse
