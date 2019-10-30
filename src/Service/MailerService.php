@@ -12,7 +12,15 @@ use Exception;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
+/**
+ * Service use to send mail
+ * Class MailerService
+ * @package App\Service
+ */
 class MailerService
 {
     const EMAIL_SORTIR = "noreply@sortir.com";
@@ -22,6 +30,13 @@ class MailerService
     private $mailer;
     private $environnement;
 
+    /**
+     * MailerService constructor.
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @param Swift_Mailer $mailer
+     * @param \Twig\Environment $environment
+     */
     public function __construct(EntityManagerInterface $em, TranslatorInterface $translator, Swift_Mailer $mailer, \Twig\Environment $environment)
     {
         $this->em = $em;
@@ -30,6 +45,13 @@ class MailerService
         $this->environnement = $environment;
     }
 
+    /**
+     * Send mails to all users after a publication
+     * @param Event $event
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function sendToAllAfterPublish(Event $event) {
         $userToNotify = $this->em->getRepository(User::class)->toNotifyAfterPublish();
 
@@ -52,6 +74,13 @@ class MailerService
         }
     }
 
+    /**
+     * Send email to administrators after event has been edited
+     * @param Event $event
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function sendAfterEdit(Event $event) {
         $userToNotify = $this->em->getRepository(User::class)->toNotifyAfterEdit();
 
@@ -74,6 +103,14 @@ class MailerService
         }
     }
 
+    /**
+     * Send mail to organisator for each subscription/unsubscription
+     * @param Event $event
+     * @param Subscription $subscription
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function sendAfterSubscription(Event $event, Subscription $subscription) {
         $message = (new Swift_Message($this->translator->trans("mail." . ($subscription->getId() == null ? "un" : "") . "subscription.subject")))
             ->setFrom(self::EMAIL_SORTIR)
@@ -91,6 +128,13 @@ class MailerService
         $this->mailer->send($message);
     }
 
+    /**
+     * Send recall email at eve event
+     * @param Event $event
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function sendRecallEve(Event $event) {
         $message = (new Swift_Message($this->translator->trans("mail.recall.subject")))
             ->setFrom(self::EMAIL_SORTIR)

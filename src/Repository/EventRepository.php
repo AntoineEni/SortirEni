@@ -22,7 +22,12 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function  eventWhitNumberSubscription(User $user){
+    /**
+     * Return events with few more information
+     * @param User $user
+     * @return array
+     */
+    public function eventWhitNumberSubscription(User $user) {
         return $this->createQueryBuilder('e')
             ->addSelect('s')
             ->addSelect('o')

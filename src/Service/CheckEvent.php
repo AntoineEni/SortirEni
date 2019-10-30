@@ -15,6 +15,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Service use for check events status or available actions
+ * Class CheckEvent
+ * @package App\Service
+ */
 class CheckEvent
 {
     private $subscriptionRepository;
@@ -39,6 +44,7 @@ class CheckEvent
     }
 
     /**
+     * Check if user can subscribe to specific event
      * @param User $user
      * @param Event $event
      * @param bool $throwException
@@ -70,6 +76,7 @@ class CheckEvent
     }
 
     /**
+     * Check if user can unsubscribe to specific event
      * @param User $user
      * @param Event $event
      * @param bool $throwException
@@ -99,6 +106,7 @@ class CheckEvent
     }
 
     /**
+     * Check if user can edit a specific event
      * @param User $user
      * @param Event $event
      * @param bool $throwException
@@ -126,6 +134,7 @@ class CheckEvent
     }
 
     /**
+     * Check if user can publish a specific event
      * @param User $user
      * @param Event $event
      * @param bool $throwException
@@ -153,6 +162,7 @@ class CheckEvent
     }
 
     /**
+     * Check if user can remove specific event
      * @param User $user
      * @param Event $event
      * @param bool $throwException
@@ -180,6 +190,7 @@ class CheckEvent
     }
 
     /**
+     * Check if user can cancel a specific event
      * @param User $user
      * @param Event $event
      * @param bool $throwException
@@ -207,6 +218,7 @@ class CheckEvent
     }
 
     /**
+     * Get all actions a user can do with a specific event
      * @param User $user
      * @param Event $event
      * @return array
@@ -259,6 +271,7 @@ class CheckEvent
     }
 
     /**
+     * Edit the status event after subscription or unsubscription
      * @param Event $event
      * @throws Exception
      */

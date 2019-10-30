@@ -21,6 +21,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+     * Return a user based on mail or username
      * @param $usernameOrEmail
      * @return mixed
      * @throws NonUniqueResultException
@@ -35,6 +36,10 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * Return the users to notify after a publication
+     * @return mixed
+     */
     public function toNotifyAfterPublish() {
         return $this->createQueryBuilder("u")
             ->where("u.isActif = :actif")
@@ -42,6 +47,10 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    /**
+     * Return the users to notify after an edit
+     * @return mixed
+     */
     public function toNotifyAfterEdit() {
         return $this->createQueryBuilder("u")
             ->where("u.isActif = :actif")
