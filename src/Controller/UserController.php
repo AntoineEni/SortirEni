@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserPasswordType;
 use App\Form\UserType;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,6 +42,9 @@ class UserController extends AbstractController
         $userForm = $this->createForm(UserType::class, $user);
         $userForm->handleRequest($request);
 
+        $userPasswordForm = $this->createForm(UserPasswordType::class, $user);
+        $userPasswordForm->handleRequest($request);
+
         if (empty($user->getPassword())) {
             $user->setPassword($password);
         }
@@ -60,8 +63,22 @@ class UserController extends AbstractController
                 $this->addFlash('danger', $ex->getMessage());
             }
         }
+        if ($userPasswordForm->isSubmitted() && $userPasswordForm->isValid()) {
+            try {
+                $encoded = $encoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($encoded);
+                $em->persist($user);
+                $em->flush();
+                $this->addFlash('success', "Votre Mot de passe a été modifié");
+                return $this->redirectToRoute("user_profil");
+            }
+            catch (\Exception $ex) {
+                $this->addFlash('danger', $ex->getMessage());
+            }
+        }
         return $this->render('user/update.html.twig', [
             "userForm" => $userForm->createView(),
+            "userPasswordForm" => $userPasswordForm->createView(),
         ]);
     }
 

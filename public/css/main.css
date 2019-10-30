@@ -86,3 +86,12 @@ footer {
 alert {
     padding: 5px;
 }
+#loader404 {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    background-color: rgba(135,123,127, 0);
+    top: 50px;
+    z-index: 1050;
+}

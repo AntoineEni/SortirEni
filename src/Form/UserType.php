@@ -21,20 +21,7 @@ class UserType extends AbstractType
                 'label' => 'Pseudo',
                 'attr' => ['class'=>'form-control']
             ])
-            ->add('password',  RepeatedType::class, [
-                'type' =>  PasswordType::class,
-                'required' => false,
-                'empty_data'=>'',
-                'invalid_message' => "Vous n'avez pas saisi le même mot de passe",
-                'first_options' => [
-                    'label' => 'Mot de passe',
-                    'attr' => ['class'=>'form-control']
-                ],
-                'second_options' => [
-                    'label' => 'Confirmation du mot de passe',
-                    'attr' => ['class'=>'form-control']
-                ]
-            ])
+
             ->add('name', TextType::class,[
                 'label' => 'Nom',
                 'attr' => ['class'=>'form-control']
