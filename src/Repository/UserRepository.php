@@ -29,7 +29,25 @@ class UserRepository extends ServiceEntityRepository
         return $this->createQueryBuilder("u")
             ->where("u.username = :query")
             ->orWhere("u.mail = :query")
+            ->andWhere("u.isActif = :actif")
             ->setParameter("query", $usernameOrEmail)
+            ->setParameter("actif", 1)
             ->getQuery()->getOneOrNullResult();
+    }
+
+    public function toNotifyAfterPublish() {
+        return $this->createQueryBuilder("u")
+            ->where("u.isActif = :actif")
+            ->setParameter("actif", 1)
+            ->getQuery()->getResult();
+    }
+
+    public function toNotifyAfterEdit() {
+        return $this->createQueryBuilder("u")
+            ->where("u.isActif = :actif")
+            ->andWhere("u.isAdmin = :admin")
+            ->setParameter("actif", 1)
+            ->setParameter("admin", 1)
+            ->getQuery()->getResult();
     }
 }

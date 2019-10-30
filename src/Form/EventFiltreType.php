@@ -33,30 +33,34 @@ class EventFiltreType extends AbstractType
             ))
             ->add('dateMin',TextType::class,array(
                 'attr'=>['id'=>'min','class'=>'form-control js-datepicker'],
-                'mapped'=>false,
+                'mapped' => false,
                 'label' => ' ',
                 'label_attr'=>['class'=>'input-group-text fas fa-calendar-alt']
             ))
             ->add('dateMax',TextType::class,array(
                 'attr'=>['id'=>'max','class'=>'form-control js-datepicker'],
-                'mapped'=>false,
+                'mapped' => false,
                 'label' => 'Date',
                 'label_attr'=>['class'=>'input-group-text']
             ))
             ->add('organisateur',CheckboxType::class,array(
-                'mapped'=>false,
+                'mapped' => false,
+                'required' => false,
                 'label' => $this->translator->trans("form.eventfilter.organisator"),
             ))
             ->add('inscrit',CheckboxType::class,array(
-                'mapped'=>false,
+                'mapped' => false,
+                'required' => false,
                 'label' => $this->translator->trans("form.eventfilter.inscrit"),
             ))
             ->add('nInscrit',CheckboxType::class,array(
-                'mapped'=>false,
+                'mapped' => false,
+                'required' => false,
                 'label' => $this->translator->trans("form.eventfilter.nInscrit"),
             ))
             ->add('finie',CheckboxType::class,array(
-                'mapped'=>false,
+                'mapped' => false,
+                'required' => false,
                 'label' => $this->translator->trans("form.eventfilter.fini"),
             ))
         ;

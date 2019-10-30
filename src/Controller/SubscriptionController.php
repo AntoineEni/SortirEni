@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\Subscription;
 use App\Service\CheckEvent;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,10 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class SubscriptionController extends AbstractController
 {
     private $checkEvent;
+    private $mailerService;
 
-    public function __construct(CheckEvent $checkEvent)
+    public function __construct(CheckEvent $checkEvent, MailerService $mailerService)
     {
         $this->checkEvent = $checkEvent;
+        $this->mailerService = $mailerService;
     }
 
     /**
@@ -44,6 +47,7 @@ class SubscriptionController extends AbstractController
             $em->flush();
 
             $this->checkEvent->editStatusAfterSubscription($event);
+            $this->mailerService->sendAfterSubscription($event, $subscription);
         } catch (\Exception $e) {
             $response["ok"] = false;
             $response["response"] = $e->getMessage();
@@ -76,6 +80,7 @@ class SubscriptionController extends AbstractController
             $em->flush();
 
             $this->checkEvent->editStatusAfterSubscription($event);
+            $this->mailerService->sendAfterSubscription($event, $subscription);
         } catch (\Exception $e) {
             $response["ok"] = false;
             $response["response"] = $e->getMessage();

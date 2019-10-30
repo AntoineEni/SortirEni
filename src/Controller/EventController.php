@@ -8,6 +8,7 @@ use App\Form\CancelEventType;
 use App\Form\EventType;
 use App\Form\LocationType;
 use App\Service\CheckEvent;
+use App\Service\MailerService;
 use App\Service\StateEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -23,10 +24,12 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class EventController extends AbstractController
 {
     private $checkEvent;
+    private $mailerService;
 
-    public function __construct(CheckEvent $checkEvent)
+    public function __construct(CheckEvent $checkEvent, MailerService $mailerService)
     {
         $this->checkEvent = $checkEvent;
+        $this->mailerService = $mailerService;
     }
 
     /**
@@ -116,6 +119,9 @@ class EventController extends AbstractController
             try {
                 $em->persist($event);
                 $em->flush();
+
+                $this->mailerService->sendAfterEdit($event);
+
                 $this->addFlash("success", "Event edit with success");
                 return $this->redirectToRoute("event_detail", array("id" => $id));
             } catch (\Exception $e) {
@@ -150,6 +156,8 @@ class EventController extends AbstractController
 
             $em->persist($event);
             $em->flush();
+
+            $this->mailerService->sendToAllAfterPublish($event);
         } catch (Exception $e) {
             $response["ok"] = false;
             $response["response"] = $e->getMessage();
