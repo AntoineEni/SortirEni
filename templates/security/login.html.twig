@@ -22,6 +22,41 @@
         </label>
     </div>
 
+    <p>
+        {{ "login.article13.reminder" }}
+        <a href="https://www.cnil.fr/fr/cookies-les-outils-pour-les-maitriser" target="_blank">
+            {{ "login.article13.learnmore"|trans }}
+            <i class="fas fa-external-link-alt"></i>
+        </a>
+    </p>
+
     <button class="btn btn-lg btn-primary" type="submit">{{ "login.confirm"|trans }}</button>
 </form>
+
+<div id="modalArticle13" class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ "login.article13.title"|trans }}</h5>
+            </div>
+            <div class="modal-body">
+                <p>{{ "login.article13.text"|trans }}</p>
+            </div>
+            <div class="modal-footer">
+                <a id="learnmoreArticle13" href="https://www.cnil.fr/fr/cookies-les-outils-pour-les-maitriser" target="_blank" type="button" class="btn btn-secondary">
+                    {{ "login.article13.learnmore"|trans }}
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+                <button id="confirmArticle13Modal" type="button" class="btn btn-primary">
+                    {{ "login.article13.confirm"|trans }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ url('bazinga_jstranslation_js') }}"></script>
+    <script type="text/javascript" src="{{ asset("js/security/login.js") }}"></script>
 {% endblock %}

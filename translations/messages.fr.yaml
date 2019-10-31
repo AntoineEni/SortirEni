@@ -29,6 +29,12 @@ login:
   rememberme: "Se souvenir de moi"
   confirm: "Connexion"
   error: "La connexion a échoué"
+  article13:
+    title: "Informations sur les cookies"
+    text: "En poursuivant votre navigation sur ce site, vous acceptez l’utilisation de Cookies, utilisez notamment pour la connexion."
+    learnmore: "En savoir plus"
+    confirm: "J'ai compris"
+    reminder: "Rappel : l'application utilise des cookies, notamment utilisé pour la connexion."
 
 home:
   title: "Accueil"
