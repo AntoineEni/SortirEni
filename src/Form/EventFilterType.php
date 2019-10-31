@@ -30,6 +30,7 @@ class EventFilterType extends AbstractType
         $builder
             ->add('site', EntityType::class, array(
                 'class' => 'App\Entity\Site',
+                "required" => false,
                 'label' => $this->translator->trans("form.eventfilter.site.label"),
                 'choice_label' => 'name',
                 'placeholder' => $this->translator->trans("form.eventfilter.site.placeholder"),
