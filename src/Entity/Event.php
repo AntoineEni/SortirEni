@@ -101,7 +101,6 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank
      */
     private $motif;
 

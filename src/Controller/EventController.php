@@ -41,7 +41,7 @@ class EventController extends AbstractController
 
     /**
      * Add a new event
-     * @Route("/event/create", name="event_add", methods={"GET"})
+     * @Route("/event/create", name="event_add", methods={"GET","POST"})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
@@ -103,7 +103,7 @@ class EventController extends AbstractController
 
     /**
      * Allow to edit an event
-     * @Route("/event/{id}/edit", name="event_edit", requirements={"id"="\d+"}, methods={"GET"})
+     * @Route("/event/{id}/edit", name="event_edit", requirements={"id"="\d+"}, methods={"GET","POST"})
      * @param $id
      * @param Request $request
      * @param EntityManagerInterface $em
