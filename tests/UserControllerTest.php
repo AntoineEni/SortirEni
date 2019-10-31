@@ -52,13 +52,5 @@ class UserControllerTest extends LoggedInWebTestCase
         $this->assertSelectorExists('button');
         $this->assertResponseIsSuccessful();
     }
-    public function testValideForm()
-    {
-
-    }
-    public function testValideFormPassword()
-    {
-
-    }
 
 }

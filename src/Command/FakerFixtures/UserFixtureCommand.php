@@ -57,8 +57,8 @@ class UserFixtureCommand extends Command
         $user->setFirstName('admin');
         $user->setPhone($this->faker->optional($chancesOfValue = 0.5)->phoneNumber);
         $user->setMail($this->faker->unique()->email);
-        $user->setIsAdmin($this->faker->boolean($chanceOfGettingTrue = 50));
-        $user->setIsActif($this->faker->optional($chancesOfValue = 0.5)->boolean($chanceOfGettingTrue = 50));
+        $user->setIsAdmin(1);
+        $user->setIsActif(1);
 
         $user->setSite($this->faker->randomElement($allSiteEntities));
 
@@ -74,7 +74,7 @@ class UserFixtureCommand extends Command
             $user->setPhone($this->faker->optional($chancesOfValue = 0.5)->phoneNumber);
             $user->setMail($this->faker->unique()->email);
             $user->setIsAdmin($this->faker->boolean($chanceOfGettingTrue = 50));
-            $user->setIsActif($this->faker->optional($chancesOfValue = 0.5)->boolean($chanceOfGettingTrue = 50));
+            $user->setIsActif($this->faker->boolean($chanceOfGettingTrue = 50));
 
             $user->setSite($this->faker->randomElement($allSiteEntities));
 
