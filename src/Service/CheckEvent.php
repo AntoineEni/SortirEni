@@ -175,7 +175,7 @@ class CheckEvent
                 throw new NotFoundHttpException($this->translator->trans("event.notfound"));
             } else if ($event->getOrganisator() !== $user) {
                 throw new AccessDeniedException($this->translator->trans("event.remove.error.organisator"));
-            } else if ($event->getState() !== StateEnum::STATE_CREATE) {
+            } else if ($event->getState() != StateEnum::STATE_CREATE) {
                 throw new BadRequestHttpException($this->translator->trans("event.remove.error.state"));
             }
         } catch (Exception $e) {
