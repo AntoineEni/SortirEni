@@ -231,5 +231,12 @@ entity:
       greater: "La valeur doit être supérieure à la date de clôture"
     datecloture:
       less: "La valeur doit être inférieure à la date de début"
+    inscription:
+      min: "Vous devez acceptes un minimum de {{ limit }} inscriptions"
+  user:
+    password:
+      regex: "Votre mot de passe doit contenir au moins un caractère minuscule, un caractère majuscule, un chiffre, un caractère spécial et faire 8 caractères minimum"
+    mail:
+      mail: "L'adresse mail n'est pas valide"
 
 footer: "Contact:"

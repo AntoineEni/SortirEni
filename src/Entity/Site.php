@@ -20,6 +20,8 @@ class Site
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=5)
      */
     private $name;
 

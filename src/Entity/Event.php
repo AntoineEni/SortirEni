@@ -22,6 +22,8 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=5)
      */
     private $name;
 
@@ -31,11 +33,13 @@ class Event
      *     propertyPath="dateCloture",
      *     message="entity.event.datedebut.greater"
      * )
+     * @Assert\NotBlank
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $duration;
 
@@ -45,11 +49,14 @@ class Event
      *     propertyPath="dateDebut",
      *     message="entity.event.datecloture.less"
      *     )
+     * @Assert\NotBlank
      */
     private $dateCloture;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Range(min="5", minMessage="entity.event.inscription.min")
      */
     private $inscriptionsMax;
 
@@ -66,6 +73,7 @@ class Event
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $lieu;
 
@@ -93,6 +101,7 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      */
     private $motif;
 
