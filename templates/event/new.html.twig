@@ -74,7 +74,7 @@
                 <div class="modal-body">
                     {{ form_start(formLocation, { "attr": { "id": "formAddLocation" }}) }}
                     {{ form_widget(formLocation) }}
-                    <button id="submitFormLocation" type="submit" data-url="{{ path("location_add") }}">
+                    <button class="btn btn-primary mb-3 mt-3 bgBleu" id="submitFormLocation" type="submit" data-url="{{ path("location_add") }}">
                         {{ "event.new.location.confirm"|trans }}
                     </button>
                     {{  form_end(formLocation) }}
