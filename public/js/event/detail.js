@@ -55,7 +55,7 @@ function confirmAndRequest(url, isAjax, type) {
         cancelButtonText: Translator.trans("app.cancel"),
     }).then((result) => {
         if (result.value) {
-            launchRequest(url, isAjax);
+            launchRequest(url, isAjax, type);
         } else {
             $("#loader").addClass("d-none");
         }
@@ -67,7 +67,7 @@ function confirmAndRequest(url, isAjax, type) {
  * @param url : string URL to call
  * @param isAjax : string says if the action is in ajax or not
  */
-function launchRequest(url, isAjax) {
+function launchRequest(url, isAjax, type) {
     if (isAjax === "true") {
         //Start ajax call
         $.ajax({
@@ -86,7 +86,7 @@ function launchRequest(url, isAjax) {
                         showConfirmButton: false,
                         timer: 1500,
                     }).then((result) => {
-                        window.location.reload();
+                        afterSuccess(type);
                     });
                 } else {
                     //If the ajax return an error
@@ -113,6 +113,21 @@ function launchRequest(url, isAjax) {
     } else {
         //If not ajax, redirect to URL
         window.location.href = url;
+    }
+}
+
+/**
+ * Launch function after success
+ * @param type
+ */
+function afterSuccess(type) {
+    switch(type) {
+        case "remove":
+            window.location.href = Routing.generate("default_index");
+            break;
+        default:
+            window.location.reload();
+            break;
     }
 }
 

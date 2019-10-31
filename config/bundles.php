@@ -18,4 +18,5 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     FakerFixtures\FakerFixturesBundle::class => ['all' => true],
     Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle::class => ['all' => true],
+    FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
 ];
