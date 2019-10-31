@@ -44,7 +44,7 @@ class UserController extends AbstractController
 
     /**
      * Update current user
-     * @Route("/user/update", name="user_modify", methods={"GET"})
+     * @Route("/user/update", name="user_modify", methods={"GET","POST"})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param UserPasswordEncoderInterface $encoder
