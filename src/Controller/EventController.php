@@ -164,7 +164,7 @@ class EventController extends AbstractController
 
         try {
             //check if user can publish this event
-            $this->checkEvent->canPublishThisEvent($this->getUser(), $event);
+            $this->checkEvent->canPublishThisEvent($this->getUser(), $event, true);
 
             $event->setState(StateEnum::STATE_OPEN);
 
