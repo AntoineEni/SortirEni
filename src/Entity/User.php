@@ -35,8 +35,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Regex(
-     *     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})",
-     *     message="entity.user.password.regex"
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/",
+     *     message="Votre mot de passe doit contenir au moins un caractère minuscule, un caractère majuscule, un chiffre, un caractère spécial et faire 8 caractères minimum"
      * )
      */
     private $password;
@@ -58,8 +58,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
-     *      pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$",
-     *     message="entity.user.phone.regex"
+     *     message="Numéro de téléphone non valide",
+     *     pattern="/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/",
      * )
      */
     private $phone;
@@ -67,7 +67,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Email(
-     *     message = "entity.user.mail.mail"
+     *     message="Adresse mail non valide",
      * )
      */
     private $mail;
