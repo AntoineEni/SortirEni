@@ -31,12 +31,15 @@ class LocationType extends AbstractType
                 "label" => $this->translator->trans("form.location.name"),
             ))
             ->add('street', TextType::class, array(
+                "required" => false,
                 "label" => $this->translator->trans("form.location.street"),
             ))
             ->add('latitude', TextType::class, array(
+                "required" => false,
                 "label" => $this->translator->trans("form.location.latitude"),
             ))
             ->add('longitude', TextType::class, array(
+                "required" => false,
                 "label" => $this->translator->trans("form.location.longitude"),
             ))
             ->add('city', EntityType::class, array(
