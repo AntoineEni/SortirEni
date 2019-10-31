@@ -238,5 +238,7 @@ entity:
       regex: "Votre mot de passe doit contenir au moins un caractère minuscule, un caractère majuscule, un chiffre, un caractère spécial et faire 8 caractères minimum"
     mail:
       mail: "L'adresse mail n'est pas valide"
+    phone:
+      regex: "Le numéro de téléphone n'est pas valide"
 
 footer: "Contact:"
