@@ -211,7 +211,7 @@ class EventController extends AbstractController
 
     /**
      * Cancel an event
-     * @Route("/event/{id}/cancel", name="event_cancel", requirements={"id"="\d+"}, methods={"GET"})
+     * @Route("/event/{id}/cancel", name="event_cancel", requirements={"id"="\d+"}, methods={"GET","POST"})
      * @param $id
      * @param Request $request
      * @param EntityManagerInterface $em
