@@ -75,7 +75,7 @@ class EventType extends AbstractType
                 "label" => $this->translator->trans("form.event.inscriptionsmax"),
             ))
             ->add('description', TextareaType::class, array(
-                "label" => $this->translator->trans("form.event.descrpition"),
+                "label" => $this->translator->trans("form.event.description"),
                 "required" => false,
             ))
             ->add('lieu', EntityType::class, array(
