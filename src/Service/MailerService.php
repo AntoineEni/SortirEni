@@ -114,7 +114,6 @@ class MailerService
     public function sendAfterSubscription(Event $event, Subscription $subscription) {
         $message = (new Swift_Message($this->translator->trans("mail." . ($subscription->getId() == null ? "un" : "") . "subscription.subject")))
             ->setFrom(self::EMAIL_SORTIR)
-            ->setTo($event->getOrganisator()->getMail())
             ->setBody(
                 $this->environnement->render(
                     'emails/subscription.html.twig',
@@ -125,7 +124,10 @@ class MailerService
             )
         ;
 
-        $this->mailer->send($message);
+        try {
+            $message->setTo($event->getOrganisator()->getMail());
+            $this->mailer->send($message);
+        } catch (Exception $e) {}
     }
 
     /**

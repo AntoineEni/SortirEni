@@ -70,7 +70,7 @@ class SubscriptionController extends AbstractController
 
     /**
      * Remove a subscription
-     * @Route("/subscription/remove/{id}", name="subscription_remove", requirements={"id"="\d+"}, methods={"GET"})
+     * @Route("/subscription/remove/{id}", name="subscription_remove", requirements={"id"="\d+"}, methods={"POST"})
      * @param $id
      * @param Request $request
      * @param EntityManagerInterface $em
