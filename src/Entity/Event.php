@@ -56,7 +56,7 @@ class Event
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
-     * @Assert\Range(min="5", minMessage="entity.event.inscription.min")
+     * @Assert\Range(min="5", minMessage="Vous devez acceptes un minimum de {{ limit }} inscriptions")
      */
     private $inscriptionsMax;
 
